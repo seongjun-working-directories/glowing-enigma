@@ -1,0 +1,19 @@
+// sample02
+
+
+cd sample02/src
+catkin_init_workspace
+catkin_create_pkg cv_basics image_transport cv_bridge sensor_msgs rospy roscpp std_msgs
+
+vim ~/.bashrc
+// source /home/hamish-official/Desktop/glowing-enigma/robot-programming-ojt/practices/codes/sample02/devel/setup.bash 를 추가함
+source ~/.bashrc
+
+catkin_make
+rosrun cv_basics hello
+
+catkin_create_pkg image_processing image_transport cv_bridge sensor_msgs rospy roscpp std_msgs
+catkin_make
+rosrun image_processing get_histogram
+rosrun image_processing get_histogram_trackbar
+rosrun image_processing get_histogram_using_opencv_function

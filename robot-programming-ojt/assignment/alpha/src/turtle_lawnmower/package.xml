@@ -1,0 +1,22 @@
+<package format="2">
+  <name>turtle_lawnmower</name>
+  <version>0.0.0</version>
+  <description>The turtle_lawnmower package</description>
+  <author email="hamishcode@gmail.com">hamish-official</author>
+  <maintainer email="hamishcode@gmail.com">hamish-official</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>turtlesim</build_depend>
+
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>turtlesim</build_export_depend>
+  
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>turtlesim</exec_depend>
+  <export/>
+</package>

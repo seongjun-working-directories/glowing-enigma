@@ -1,0 +1,296 @@
+    1  udevadm info -a /dev/ttyUSB0 | grep '{serial}'
+    2  udevadm info -a /dev/ttyUSB1 | grep '{serial}'
+    3  udevadm info -a /dev/ttyUSB1 | grep '{serial}'
+    4  udevadm info -a /dev/ttyUSB0 | grep '{serial}'
+    5  ls -l /dev/serial/by-id
+    6  ls -al /dev/serial/by-id
+    7  lsusb
+    8  udevadm info -a /dev/ttyUSB1 | grep '{serial}
+    9  '
+   10  cd /etc/udev/rules.d
+   11  sudo gedit 99-tty.rules
+   12  sudo vim 99-tty.rules
+   13  lsusb
+   14  ls -al /dev/serial/by-id
+   15  udevadm info -a /dev/ttyUSB1 | grep '{serial}
+   16  '
+   17  lsusb
+   18  sudo vim 99-tty.rules
+   19  sudo service udev reload
+   20  sudo service udev restart
+   21  sudo ls -l /dev/ttyLiDAR
+   22  sudo ls -la /dev/ttyUSB*
+   23  udevadm info -a /dev/ttyUSB1 | grep '{serial}
+   24  '
+   25  udevadm info -a /dev/ttyUSB0 | grep '{serial}
+   26  '
+   27  cd /etc/udev/rules.d
+   28  sudo vim 99-tty.rules 
+   29  sudo service udev reload
+   30  sudo vim 99-tty.rules 
+   31  sudo service udev reload
+   32  sudo ls -l /dev/ttyUSB*
+   33  sudo ls -l /dev/ttyLiDAR
+   34  sudo ls -l /dev/ttyLiDAR2
+   35  sudo ls -l /dev/ttyLiDAR
+   36  udevadm info -a -n /dev/ttyUSB* | grep '{serial}'
+   37  udevadm info -a -n /dev/ttyUSB0
+   38  udevadm info -a -n /dev/ttyUSB1
+   39  vim 99-tty.rules
+   40  sudo service udev reload
+   41  sudo ls -l /dev/ttyLiDAR
+   42  sudo ls -l /dev/ttyLiDAR2
+   43  sudo ls -l /dev/ttyLiDAR
+   44  vim 99-tty.rules 
+   45  sudo vim 99-tty.rules 
+   46  sudo service udev reload
+   47  sudo ls -l /dev/ttyLiDAR
+   48  sudo ls -l /dev/ttyLiDAR2
+   49  sudo ls -l /dev/ttyLiDAR
+   50  sudo ls -l /dev/ttyLiDAR2
+   51  udevadm info -a -n /dev/ttyUSB0
+   52  sudo vim /dev/ttyUSB0
+   53  read $input_value < /dev/ttyUSB0
+   54  sudo read $input_value < /dev/ttyUSB0
+   55  sudo read /dev/ttyUSB0
+   56  sudo read $input < sudo /dev/ttyUSB0
+   57  sudo read $input < /dev/ttyUSB0
+   58  sudo chmod 777 /dev/ttyUSB0
+   59  sudo read $input_value < /dev/ttyUSB0
+   60  read $input_value < /dev/ttyUSB0
+   61  $input_value
+   62  echo $input_value
+   63  lsusb
+   64  sudo chmod 777 /dev/ttyLiDAR
+   65  sudo ls -l /dev/ttyLiDAR 
+   66  cd sensor-with-linux/
+   67  source devel/setup.bash
+   68  roslaunch lsm10_v2 merged_lsm10_v2.launch 
+   69  udevadm info -a /dev/ttyUSB0 | grep '{serial}'
+   70  cd /etc/udev/rules.d
+   71  sudo vim 99-tty.rules 
+   72  udevadm info -a /dev/ttyUSB0 | grep '{serial}'
+   73  udevadm info -a /dev/ttyUSB1 | grep '{serial}'
+   74  sudo ls -l /dev/ttyLiDAR 
+   75  sudo ls -l /dev/ttyLiDAR2
+   76  sudo service udev reload 
+   77  sudo vim 99-tty.rules 
+   78  sudo service udev reload 
+   79  udevadm info -a -n /dev/ttyUSB0 | grep '{serial}' | head -n1
+   80  udevadm info -a -n /dev/ttyUSB1 | grep '{serial}' | head -n1
+   81  udevadm info -a -n /dev/ttyUSB0 | grep '{serial}' | head -n1
+   82  udevadm info -a -n /dev/ttyUSB1 | grep '{serial}' | head -n1
+   83  sudo ls -la /dev/ttyUSB&
+   84  sudo ls -la /dev/ttyUSB*
+   85  /dev/ttyUSB1
+   86  sudo /dev/ttyUSB1
+   87  sudo ls -la /dev/ttyUSB*
+   88  sudo vim 99-tty.rules 
+   89  sudo service udev reload 
+   90  $ udevadm info -a -n /dev/ttyUSB* | grep '{serial}' | head -n1
+   91  udevadm info -a -n /dev/ttyUSB* | grep '{serial}' | head -n1
+   92  udevadm info -a -n /dev/ttyUSB0 | grep '{serial}' | head -n1
+   93  udevadm info -a -n /dev/ttyUSB1 | grep '{serial}' | head -n1
+   94  udevadm info -a -n /dev/ttyUSB*
+   95  udevadm info -a -n /dev/ttyUSB0
+   96  sudo chmod 777 /dev/ttyUSB0
+   97  sudo vim /dev/ttyUSB0
+   98  sudo chmod 777 /dev/ttyUSB0
+   99  udevadm info -a -n /dev/ttyUSB0
+  100  sudo chmod 777 ttyUSB&
+  101  sudo chmod 777 ttyUSB0
+  102  sudo chmod 777 /dev/ttyUSB0
+  103  sudo chmod 777 /dev/ttyLiDAR
+  104  cd sensor-with-linux/
+  105  source devel/setup.bash 
+  106  roslaunch lsm10_v2 merged_lsm10_v2.launch 
+  107  source devel/setup.bash 
+  108  sudo chmod 777 /dev/ttyLiDAR
+  109  sudo chmod 777 /dev/ttyUSB0
+  110  sudo chmod 777 /dev/ttyUSB1
+  111  roslaunch lsm10_v2 merged_lsm10_v2.launch 
+  112  history
+  113  udevadm info -a /dev/ttyUSB1 | grep '{serial}'
+  114  udevadm info -a /dev/ttyUSB0 | grep '{serial}'
+  115  udevadm info -a /dev/ttyUSB1
+  116  udevadm info -a /dev/ttyUSB0
+  117  udevadm info -a /dev/ttyUSB1
+  118  cd sensor-with-linux/
+  119  cd /etc/udev/rules.d
+  120  ls
+  121  cd 99-tty.rules
+  122  sudo vim 99-tty.rules
+  123  history
+  124  udevadm info -la
+  125  history
+  126  udevadm info -a -n /dev/ttyUSB0
+  127  udevadm info -a /dev/ttyUSB0 | grep '{serial}'
+  128  udevadm info -a /dev/ttyUSB1 | grep '{serial}'
+  129  cd /etc/udev/rules.d/
+  130  vim 99-tty.rules 
+  131  udevadm info -a /dev/ttyUSB0
+  132  vim 99-tty.rules 
+  133  cd /etc/udev/rules.d/
+  134  vim 99-tty.rules 
+  135  sudo vim 99-tty.rules 
+  136  sudo service udev reload 
+  137  sudo service udev reload
+  138  sudo vim 99-tty.rules 
+  139  sudo service udev reload
+  140  sudo ls -la /dev/ttyUSB*
+  141  sudo chmod 777 /dev/ttyLiDAR
+  142  sudo ls -la /dev/ttyUSB*
+  143  sudo chmod 777 /dev/ttyLiDAR
+  144  sudo ls -la /dev/ttyUSB*
+  145  sudo chmod 777 /dev/ttyLiDAR
+  146  sudo ls -la /dev/ttyUSB*
+  147  sudo service udev reload
+  148  sudo chmod 777 /dev/ttyLiDAR
+  149  sudo service udev reload
+  150  sudo chmod 777 /dev/ttyLiDAR
+  151  sudo ls -la /dev/ttyUSB*
+  152  sudo vim 99-tty.rules
+  153  cd /etc/udev/
+  154  sudo vim rules.d/
+  155  cd rules.d/
+  156  sudo vim 99-tty.rules 
+  157  sudo service udev reload
+  158  sudo ls -la /dev/ttyLiDAR
+  159  sudo ls -la /dev/ttyLiDAR2
+  160  sudo vim 99-tty.rules
+  161  sudo service udev reload
+  162  sudo ls -la /dev/ttyUSB*
+  163  sudo ls -la /dev/ttyLiDAR
+  164  sudo ls -la /dev/ttyLiDAR2
+  165  sudo vim 99-tty.rules
+  166  sudo ls -la /dev/ttyLiDAR2
+  167  sudo service udev reload
+  168  sudo ls -la /dev/ttyUSB*
+  169  sudo ls -la /dev/ttyLiDAR2
+  170  sudo chmod 777 /dev/ttyLiDAR
+  171  sudo chmod 777 /dev/ttyLiDAR2
+  172  sudo chmod 777 /dev/ttyUSB0
+  173  sudo ls -la /dev/ttyUSB0
+  174  sudo vim 99-tty.rules
+  175  sudo service udev reload
+  176  sudo ls -la /dev/ttyUSB*
+  177  sudo service udev reload
+  178  sudo chmod 777 /dev/ttyLiDAR
+  179  sudo vim 99-tty.rules
+  180  sudo service udev reload
+  181  sudo chmnod 777 /dev/ttyLiDAR2
+  182  sudo chmod 777 /dev/ttyLiDAR
+  183  sudo vim 99-tty.rules
+  184  sudo service udev reload
+  185  sudo chmnod 777 /dev/ttyLiDAR
+  186  sudo chmod 777 /dev/ttyLiDAR2
+  187  udevadm info -a /dev/ttyUSB1
+  188  udevadm info -a /dev/ttyUSB0
+  189  sudo ls -la /dev/ttyLiDAR
+  190  sudo ls -la /dev/ttyLiDAR2
+  191  sudo vim 99-tty.rules
+  192  cd /etc/udev/rules.d/
+  193  sudo vim 99-tty.rules
+  194  sudo service udev reload
+  195  sudo service udev restart 
+  196  sudo ls -la /dev/ttyLiDAR
+  197  sudo service udev reload
+  198  sudo ls -la /dev/ttyLiDAR
+  199  sudo vim 99-tty.rules
+  200  sudo service udev reload
+  201  sudo ls -la /dev/ttyLiDAR
+  202  sudo ls -la /dev/ttyUSB0
+  203  sudo ls -la /dev/ttyLiDAR
+  204  sudo vim 99-tty.rules
+  205  sudo service udev reload
+  206  sudo service udev restart
+  207  sudo service udev reload
+  208  sudo ls -la /dev/ttyLiDAR
+  209  sudo vim 99-tty.rules 
+  210  sudo service udev reload
+  211  sudo service udev restart 
+  212  sudo ls -la /dev/ttyLiDAR
+  213  sudo service udev reload
+  214  sudo ls -la /dev/ttyLiDAR
+  215  im 99-tty.rules 
+  216  vim 99-tty.rules 
+  217  sudo vim 99-tty.rules 
+  218  sudo service udev reload
+  219  sudo ls -la /dev/ttyLiDAR
+  220  sudo service udev reload
+  221  sudo ls -la /dev/ttyLiDAR
+  222  vim 99-tty.rules 
+  223  sudo vim 99-tty.rules 
+  224  sudo service udev reload
+  225  sudo ls -la /dev/ttyLiDAR
+  226  sudo vim 99-tty.rules 
+  227  sudo service udev reload
+  228  sudo ls -la /dev/ttyLiDAR
+  229  sudo service udev reload
+  230  sudo ls -la /dev/ttyLiDAR
+  231  sudo service udev reload
+  232  sudo ls -la /dev/ttyLiDAR
+  233  sudo vim 99-tty.rules
+  234  sudo service udev reload
+  235  sudo ls -la /dev/ttyLiDAR
+  236  sudo ls -la /dev/ttyUSB*
+  237  sudo ls -la /dev/ttyLiDAR
+  238  sudo ls -la /dev/ttyUSB*
+  239  sudo ls -la /dev/ttyLiDAR
+  240  vim 99-tty.rules 
+  241  sudo vim 9
+  242  sudo ls
+  243  sudo vim 99-tty.rules 
+  244  sudo service udev reload
+  245  sudo ls -la /dev/ttyUSB*
+  246  sudo chmod /dev/ttyLiDAR
+  247  sudo chmod 777 /dev/ttyLiDAR
+  248  sudo chmod /dev/ttyLiDAR
+  249  sudo chmod 777 /dev/ttyLiDAR
+  250  vim 99-tty.rules 
+  251  sudo vim 99
+  252  sudo vim 99-tty.rules 
+  253  sudo service udev reload
+  254  sudo ls -la /dev/tty
+  255  sudo chmod 777 /dev/ttyLiDAR
+  256  sudo service udev reload
+  257  sudo chmod 777 /dev/ttyLiDAR
+  258  sudo ls -la /dev/ttyUSB*
+  259  sudo vim 99-tty.rules 
+  260  sudo service udev reload
+  261  sudo chmod 777 /dev/ttyLiDAR
+  262  sudo ls -la /dev/ttyUSB*
+  263  sudo vim 99-tty.rules 
+  264  sudo service udev reload
+  265  sudo chmod 777 /dev/ttyLiDAR
+  266  sudo chmod 777 /dev/ttyLiDAR2
+  267  sudo vim 99-tty.rules 
+  268  sudo service udev reload
+  269  sudo chmod 777 /dev/ttyLiDAR2
+  270  sudo chmod 777 /dev/ttyLiDAR
+  271  sudo ls -la /dev/ttyLiDAR
+  272  sudo ls -la /dev/ttyLiDAR2
+  273  sudo chmod 777 /dev/ttyLiDAR
+  274  sudo chmod 777 /dev/ttyLiDAR2
+  275  cd sensor-with-linux/
+  276  source devel/setup.bash
+  277  roslaunch lsm10_v2 merged_lsm10_v2.launch
+  278  sudo ls -la /dev/ttyLiDAR*
+  279  sudo chmod 777 /dev/ttyLiDAR
+  280  sudo chmod 777 /dev/ttyLiDAR2
+  281  roslaunch lsm10_v2 merged_lsm10_v2.launch
+  282  cd sensor-with-linux/
+  283  source devel/setup.bash 
+  284  roslaunch lsm10_v2 merged_lsm10_v2.launch 
+  285  history
+
+  hamish-official@hamishofficial-17Z990-VA50K:~/coga-ojt-tmp/sensor-with-linux$ udevadm info -a -n /dev/ttyUSB1 | grep path
+Udevadm info starts with the device specified by the devpath and then
+    ATTRS{devpath}=="7.2"
+    ATTRS{devpath}=="7"
+    ATTRS{devpath}=="0"
+hamish-official@hamishofficial-17Z990-VA50K:~/coga-ojt-tmp/sensor-with-linux$ udevadm info -a -n /dev/ttyUSB0 | grep path
+Udevadm info starts with the device specified by the devpath and then
+    ATTRS{devpath}=="7.1"
+    ATTRS{devpath}=="7"
+    ATTRS{devpath}=="0"

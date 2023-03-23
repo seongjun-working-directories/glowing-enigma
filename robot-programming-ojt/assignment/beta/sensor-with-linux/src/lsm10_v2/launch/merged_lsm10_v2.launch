@@ -1,0 +1,31 @@
+<launch>
+  <include file="$(find astra_camera)/launch/stereo_s_u3.launch" />
+
+  <!-- <arg name="model" /> -->
+  <param name="robot_description" textfile="$(find lsm10_v2)/urdf/test.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <node name="lsm10_v2" pkg="lsm10_v2" type="lsm10_v2" output="screen" ns="LeftLidar">
+    <param name="scan_topic" value="scan1"/>  # 레이저 데이터 topic 이름 설정
+    <param name="frame_id" value="laser_link1"/>  # 레이저 좌표
+    <param name="serial_port" value="/dev/ttyLiDAR"/>  # 레이더 연결구
+    <param name="angle_disable_min" value="135"/> # 레이더 커팅 각도 시작값
+    <param name="angle_disable_max" value="225"/> # 레이더 커팅 각도 종료값
+    <param name="min_range" value="0.0"/> # 레이더 수신 거리 최소값
+    <param name="max_range" value="100.0"/> # 레이더 수신거리 최대값
+    <param name="versions" value="1"/>  # 레이더 프로토콜 선택 1 : 1.0.1 프로토콜 / 2 : 1.3.2 프로토콜
+  </node>
+
+  <node name="lsm10_v2" pkg="lsm10_v2" type="lsm10_v2" output="screen" ns="RightLidar">
+    <param name="scan_topic" value="scan2"/>  # 레이저 데이터 topic 이름 설정
+    <param name="frame_id" value="laser_link2"/>  # 레이저 좌표
+    <param name="serial_port" value="/dev/ttyLiDAR2"/>  # 레이더 연결구
+    <param name="angle_disable_min" value="135"/> # 레이더 커팅 각도 시작값
+    <param name="angle_disable_max" value="225"/> # 레이더 커팅 각도 종료값
+    <param name="min_range" value="0.0"/>   # 레이더 수신 거리 최소값
+    <param name="max_range" value="100.0"/> # 레이더 수신거리 최대값
+    <param name="versions" value="1"/>  # 레이더 프로토콜 선택 1 : 1.0.1 프로토콜 / 2 : 1.3.2 프로토콜
+  </node>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find lsm10_v2)/urdf.rviz" required="true" />
+</launch>

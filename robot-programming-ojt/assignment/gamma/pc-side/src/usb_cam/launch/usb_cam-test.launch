@@ -1,0 +1,39 @@
+<launch>
+  <!-- <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+  </node>
+   -->
+
+  <!-- [TEST] -->
+  <!-- machine을 통해 보드의 카메라를 켜는 코드가 여기에 들어가야 함 -->
+  <group>
+    <!-- 유선 통신 -->
+    <machine name="board" address="10.42.0.1" env-loader="/opt/ros/noetic/env.sh" user="cona0901" password="conacona" />
+    <!-- 무선 통신 -->
+    <!-- <machine name="board" address="192.168.50.171" env-loader="/opt/ros/noetic/env.sh" user="cona0901" password="conacona" /> -->
+  </group>
+
+  <node machine="board" name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen">
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+  </node>
+  <!-- [TEST] -->
+
+  <!-- <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+    <remap from="image" to="/usb_cam/image_raw"/>
+    <param name="autosize" value="true" />
+  </node> -->
+
+  <node name="cv_image_view" pkg="cv_image_viewer" type="image_viewing" />
+  <node name="cv_compressed_image_view" pkg="cv_image_viewer" type="compressed_image_viewing" />
+  <node name="cv_decoded_compressed_image_view" pkg="cv_image_viewer" type="decoded_compressed_image_viewing" />
+</launch>

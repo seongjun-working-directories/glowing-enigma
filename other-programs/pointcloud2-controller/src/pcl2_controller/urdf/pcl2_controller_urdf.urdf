@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<robot name="pcl2_controller_urdf">
+  <link name="base_link"></link>
+  <link name="camera_link"></link>
+
+  <joint name="camera_link" type="fixed">
+    <parent link="base_link" />
+    <child link="camera_link" />
+    <origin xyz="1 0 0" rpy="0 0 0" />
+  </joint>
+</robot>

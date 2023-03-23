@@ -1,0 +1,95 @@
+# robot-programming-ojt 디렉토리에서 터미널 실행
+
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt install net-tools
+ifconfig
+
+mkdir assignment
+cd assignment/
+mkdir -p alpha/src
+cd alpha/
+cd src/
+catkin_init_workspace
+cd ..
+catkin_make
+
+# robot-programming-ojt/assignment/alpha 디렉토리에서 터미널 실행
+
+source devel/setup.bash
+roscore
+(ctrl+c)
+
+vim ~/.bashrc
+```추가 사항
+# Set ROS Noetic
+source /opt/ros/noetic/setup.bash
+source ~/Desktop/glowing-enigma/robot-programming-ojt/assignment/alpha/devel/setup.bash
+
+# Set ROS Network
+export ROS_HOSTNAME=192.168.50.62 또는 export ROS_HOSTNAME=localhost
+export ROS_MASTER_URL=http://192.168.50.62:11311 또는 export ROS_MASTER_URL=http://localhost:11311
+
+# Set ROS alias command
+alias cw='cd ~/Desktop/glowing-enigma/robot-programming-ojt/assignment/alpha'
+alias cs='cd ~/Desktop/glowing-enigma/robot-programming-ojt/assignment/alpha/src'
+alias cm='cd ~/Desktop/glowing-enigma/robot-programming-ojt/assignment/alpha && catkin_make'
+```
+
+source ~/.bashrc
+
+# robot-programming-ojt/220902_220908/solution 디렉토리에서 Terminator 실행
+
+[ Terminal 1 ]
+roscore
+
+[ Terminal 2 ]
+rosrun turtlesim turtlesim_node
+
+[ Terminal 3 ]
+rosrun turtlesim turtle_teleop_key
+
+[ Terminal 4 ]
+rqt_graph
+
+# robot-programming-ojt/220902_220908/solution 디렉토리에서 실행
+
+cd src/
+catkin_create_pkg pkg_boilerplate std_msgs roscpp
+
+# package.xml, CMakeLists.txt 수정
+
+# robot-programming-ojt/220902_220908/solution 디렉토리에서 실행
+
+cd src/pkg_boilerplate/src/
+vim hello_world_node.cpp
+
+```hello_world_node.cpp
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <sstream>
+
+int main(int argc, char **argv) {
+	ros::init(argc, argv, "hello_world_node");
+	ros::NodeHandle nh;
+	ros::Publisher chatter_pub = nh.advertis<std_msgs::String>("say_hello_world", 1000);
+	ros::Rate loop_rate(10);
+	int count = 0;
+
+	while (ros::ok()) {
+		std_msgs::String msg;
+		std::stringstream ss;
+		ss << "hello world!" << count;
+		msg.data = ss.str();
+		ROS_INFO("%s", msg.data.c_str());
+		chatter_pub.publish(msg);
+		ros::spinOnce();
+		loop_rate.sleep();
+		++count;
+	}
+	
+	return 0;
+}
+```
+
+rospack profile # ROS 패키지의 프로파일 갱신 => 앞서 제작한 패키지를 ROS 패키지 목록에 반영
+cd ~/Desktop/psj-code/robot-programming-ojt/220902_220908/solution && catkin_make

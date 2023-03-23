@@ -1,0 +1,179 @@
+1.
+catkin_make 명령어로 build, devel 폴더 생성
+- build 폴더 :  catkin 빌드 시스템의 빌드 관련 파일
+- devel : 빌드 후 실행 관련 파일
+
+2. git clone 하는 경우
+- solution 폴더 위치로 가서 'catkin_make' 명령어 입력
+
+3. ROS 용어
+- ROS
+- master : 노드와 노드 사이의 연결과 메시지 통신을 위한 네임 서버, 'roscore'가 실행 명령어
+- node : ROS에서 실행되는 최소 단위 프로세서
+  => 하나의 실행 가능한 프로그램
+- package : ROS를 구성하는 기본 단위
+  => ROS의 응용 프로그램은 패키지 단위로 개발되며 패키지는 최소 하나 이상의 노드를 포함하거나 다른 패키지 노드 실행을 위한 설정 파일을 포함
+- metapackage : 공통된 목적을 지닌 패키지들의 집합
+- message : 변수(integer, floating, point, boolean, 자료구조, etc.) 형태의 데이터
+- topic : publisher node가 topic을 master에 등록하고, 해당 topic의 정보를 메시지 형태로 publish
+  => subscriber node는 수신을 원할 경우 master에 등록된 topic의 이름에 해당하는 publisher node 정보를 subscribe
+  => topic 통신은 비동기로 센서 데이터에 적합
+- publish/publisher : 메시지 형태의 데이터 송신
+- subscribe/subscriber : 메시지 형태의 데이터 수신
+- service : 특정 목적의 작업에 해당되는 서비스를 요청하는 서비스 클라이언트와 서비스 응답을 담당하는 서비스 서버 간 동기적 양방향 메시지 통신
+  => service 통신은 동기이며, 일회성 메시지 통신
+  => 서비스의 요청과 응답이 완료되면 연결된 두 노드의 접속이 끊김
+- action : 양방향을 요구하지만, 요청 처리 후 응답까지 오랜 시간이 걸리고 중간 결과값이 필요한 경우 사용되는 메시지 통신 방식
+  => 요청과 응답에 해당하는 목표(goal)와 결과(result)가 있음
+  => 중간값에 해당하는 피드백(feedback)이 있음
+- action client : 액션의 goal을 정함
+- action server : 액션의 goal에 맞춰 정해진 일을 수행하고 액션 피드백과 결과를 전달함
+- parameter : 노드에서 사용되는 파라미터로 WindowOS의 *.ini 파일과 유사
+  => 외부에서 쓰기 기능으로 상황에 따른 설정값 변경을 실시간으로 할 수 있음
+- parameter server : 패키지에서 파라미터를 사용할 때, 각 파라미터를 등록하는 서버
+- catkin : ROS의 빌드 시스템
+  => 기본적으로 CMake를 이용하며, 패키지 폴더에 CMakeLists.txt라는 파일에 빌드 환경 기술
+- roscore : master를 구동하는 명령어
+- rosrun : ROS의 기본 실행 명령어, 패키지에서 하나의 노드를 실행하는데 사용
+- roslaunch : 여러 노드를 실행하는데 사용
+  => *.launch 파일을 사용해 실행 노드에 대한 설정을 함
+- bag : ROS에서 주고받는 메시지의 데이터 저장 파일 포맷
+  => *.bag를 사용해 이전 상황 재현 가능
+- graph : node, topic, publisher, subscriber 관계를 시각적으로 표현
+- name : master에 등록하고 사용할 때 사용됨
+  => node, parameter, topic, service 모두 name을 가지고 있음
+- Client Library : 언어의 의존성을 낮춰주는 개발환경 제공 ex) rospy, roscpp
+- CMakeLists.txt : Catkin의 빌드 환경 기술
+- package.xml : 패키지의 정보를 보관
+
+4. XML-RPC
+- 링크 : https://ko.wikipedia.org/wiki/XML-RPC
+- RPC 프로토콜의 일종으로서, 인코딩 형식에서는 XML을 채택하고, 전송 방식에서는 HTTP 프로토콜을 사용
+- 노드는 마스터와 통신할 때 XML-RPC 사용, 노드 간 통신에서는 TCP/IP 계열의 TCPROS 사용
+
+5. 메시지 통신의 종류
+- topic(ASYNC), service(SYNC), action(ASYNC), parameter
+
+6. 메시지 통신의 흐름 - 토픽
+(1) master 구동
+(2) subscriber node 구동
+(3) publisher node 구동
+(4) publisher 정보 알림
+(5) subscriber node의 직접 접속 요청
+(6) publisher node의 접속 응답
+(7) TCPROS(TCP/IP 방식) 접속
+(8) publisher의 message 전송
+
+7. 메시지 통신의 특징 - 서비스
+(1) service client와 service server로 구분
+(2) service request와 service response
+(3) 토픽과 유사하지만, 1회에 한해 접속
+
+8. 메시지 통신의 흐름 -서비스
+(1) 노드1 <- 액션 Goal <- 노드2
+(2) 노드1 -> 액션 Status -> 노드2
+(3) 노드1 <- 액션 Cancel <- 노드2
+(4) 노드1 -> 액션 Feedback -> 노드2
+(5) 노드1 -> 액션 Result -> 노드2
+
+9. 메시지(message)
+- 노드 간 데이터 교환 시 사용하는 데이터 형태
+- topic, service, action 모두 message를 사용
+- 메시지 구성 : <fieldtype-n> <fieldname-n>
+- 메시지 구성 예시 : int32 xVal
+
+10. 메시지 자료형
+
+ROS 자료형       C++ 자료형                 Python 자료형
+--------------------------------------------------------
+bool            uint8_t                   bool
+int8            int8_t                    int
+uint8           uint8_t                   int
+int16           int16_t                   int
+uint16          uint16_t                  int
+int32           int32_t                   int
+uint32          uint32_t                  int
+int64           int64_t                   long
+uint64          uint64_t                  long
+float32         float                     float
+float64         double                    float
+string          std::string               str
+time            ros::Time                 rospy.Time
+duration        ros::Duration             rospy.Duration
+fixed-length    boost::array, std::vector tuple
+variable-length std::vector               tuple
+uint8[]         std::vector               bytes
+bool[]          std::vector<uint8_t>      list of bool
+
+- ROS에서 일반적으로 많이 사용되는 헤더(Header, std_msgs/Header)도 메시지로 사용 가능
+- std_msgs 중 Header.msg 파일에 기재되어 있듯이 시퀀스 아이디와 타임 스탬프, 프레임 아이디를 기재하여
+- 현재 이용하고 있는 메시지의 계측 또는 계산된 시간을 이용할 때 메시지에 함께 포함시켜서 사용
+
+11. msg 파일(*.msg)
+- 토픽에 사용되는 메시지 파일
+- ex)
+```geometry_msgs/Twist.msg
+Vector3 linear
+Vector3 angular
+```
+
+12. srv 파일(*.srv)
+- 서비스에 사용되는 메시지 파일
+- 구분자(---)를 기준으로 request, response 순
+- ex)
+```sensor_msgs/SetCameraInfo.srv
+sensor_msgs/SetCameraInfo camera_info
+---
+bool success
+string status_message
+```
+
+13. action 파일(*.action)
+- 액션에 사용되는 메시지 파일
+- 구분자(---)를 기준으로 goal, result, feedback 순
+```
+geometry_msgs/PoseStamped start_pose
+geometry_msgs/PoseStamped goal_pose
+---
+geometry_msgs/PoseStamped result_pose
+---
+float32 percent_complete
+```
+
+14. 네임(name)
+
+15. 좌표 변환(TF)
+
+16. 클라이언트 라이브러리(Client Library)
+
+17. 이기종 디바이스 통신
+
+18. 파일 시스템
+- 설치 폴더와 사용자 작업 폴더로 구분
+- ROS 설치 폴더
+  => /opt/ros/[버전명]으로 생성됨
+  => 환경 설정 파일들로 구성됨
+- 사용자 작업 폴더
+  => build, devel, src 폴더로 구성되어 있음
+  => 그 중 build, devel은 catkin_make로 생성해야 함
+
+19. 일반적인 src 소스 코드 공간 설명
+- /include    : 헤더 파일
+- /launch     : roslaunch에서 사용하는 launch 파일
+- /node       : rospy용 스크립트
+- /msg        : 메시지 파일
+- /src        : 소스 코드 파일
+- /srv        : 서비스 파일
+- CMakeLists.txt  : 빌드 설정 파일
+- package.xml : 패키지 설정 파일
+
+20. 빌드 시스템
+- 패키지 생성 명령어 : catkin_create_pkg <packageName> <dependingPackage1> <dependingPackage2>
+- std_msgs : ROS의 표준 메시지 패키지
+- roscpp : C/C++을 사용하기 위한 클라이언트 라이브러리
+- 패키지 생성 시 의존하는 것도 가능하지만, 생성된 package.xml에 차후에 작성하는 방식도 존재
+```ROS 패키지 생성 예시
+# path : ~/Desktop/psj-code/robot-programming-ojt/220902_220908/solution/src
+catkin_create_pkg pkg_boilerplate std_msgs roscpp
+```
+Footer

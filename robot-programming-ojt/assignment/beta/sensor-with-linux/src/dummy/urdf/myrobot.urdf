@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<robot name="myrobot">
+
+  <!-- materials -->
+  <!-- <material name="white">
+    <color rgba="1 1 1 1" />
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1" />
+  </material>
+  <material name="orange">
+    <color rgba="1 0.3 0.1 1" />
+  </material>
+  <material name="blue">
+    <color rgba="0.2 0.2 1 1" />
+  </material>
+  <material name="red">
+    <color rgba="1 0 0 1" />
+  </material> -->
+
+  <link name="base_link">
+    <!-- <visual>
+      <geometry>
+        <box size="0.21 0.297 0.06" />
+        <origin rpy="0 0 0" xyz="0 0 0" />
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <material name="blue">
+        <color rgba="0.2 0.2 1 1" />
+      </material>
+    </visual> -->
+  </link>
+
+  <joint name="camera01_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="camera01" />
+    <origin xyz="0 0.1475 0.06" />
+  </joint>
+
+  <sensor name="camera01" update_rate="20">
+    <parent link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <camera>
+      <image width="640" height="480" hfov="1.5708" format="RGB8" near="0.01" far="50.0"/>
+    </camera>
+  </sensor>
+
+  <!-- <link name="camera01">
+    <visual>
+      <geometry>
+        <box size="0.065 0.01 0.0228" />
+      </geometry>
+      <material name="orange">
+        <color rgba="1 0.3 0.1 1" />
+      </material>
+    </visual>
+  </link> -->
+
+  <joint name="LeftLidar_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="LeftLidar" />
+    <origin xyz="-0.065 0.1085 0.060" />
+  </joint>
+
+  <!-- <link name="LeftLidar">
+    <visual>
+      <geometry>
+        <cylinder radius="0.04" length="0.04" />
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1" />
+      </material>
+    </visual>
+  </link> -->
+
+  <sensor name="LeftLidar" udpate_rate="20">
+    <parent link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <ray>
+      <horizontal samples="100" resolution="1" min_angle="-1.5708" max_angle="1.5708" />
+      <vertical samples="1" resolution="1" min_angle="0" max_angle="0" />
+    </ray>
+  </sensor>
+
+  <joint name="RightLidar_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="RightLidar" />
+    <origin xyz="0.065 -0.1085 0.060" />
+  </joint>
+
+  <!-- <link name="RightLidar">
+    <visual>
+      <geometry>
+        <cylinder radius="0.04" length="0.04" />
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1" />
+      </material>
+    </visual>
+  </link> -->
+
+  <sensor name="RightLidar" udpate_rate="20">
+    <parent link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <ray>
+      <horizontal samples="100" resolution="1" min_angle="-1.5708" max_angle="1.5708" />
+      <vertical samples="1" resolution="1" min_angle="0" max_angle="0" />
+    </ray>
+  </sensor>
+</robot>

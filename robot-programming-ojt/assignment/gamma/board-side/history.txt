@@ -1,0 +1,62 @@
+# pc-side를 ros master로 함
+sudo vim ~/.bashrc
+
+'''
+source /opt/ros/noetic/setup.bash
+source ~/board-side/devel/setup.bash
+
+export ROS_MASTER_URI=http://192.168.1.100:11311
+export ROS_HOSTNAME=192.168.1.100
+'''
+
+[ 
+  주의할 점은 192.168.1.100은 예시이고,
+  실제 자신의 ip를 확인하기 위해서는 ifconfig를 사용해야 한다는 것이다.
+  유선일 경우 enp3s0, 무선일 경우 wlp2s0의 inet addr에 자신의 IP 주소가 표시된다.
+
+  ex)
+  enp89s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.42.0.1  netmask 255.255.255.0  broadcast 10.42.0.255
+        inet6 fe80::1af4:9aeb:4080:c01a  prefixlen 64  scopeid 0x20<link>
+        ether 1c:69:7a:ae:d7:ad  txqueuelen 1000  (Ethernet)
+        RX packets 102  bytes 14518 (14.5 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 108  bytes 16412 (16.4 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device memory 0x6a200000-6a2fffff  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 298  bytes 28615 (28.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 298  bytes 28615 (28.6 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlo1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.200.171  netmask 255.255.255.0  broadcast 192.168.200.255
+        inet6 fe80::df61:81a7:fe14:a881  prefixlen 64  scopeid 0x20<link>
+        ether 80:38:fb:5d:37:e8  txqueuelen 1000  (Ethernet)
+        RX packets 519  bytes 157336 (157.3 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 508  bytes 537775 (537.7 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+]
+
+'''
+source /opt/ros/noetic/setup.bash
+source ~/board-side/devel/setup.bash
+
+export ROS_MASTER_URI=http://10.42.0.88:11311
+export ROS_HOSTNAME=10.42.0.1
+'''
+
+source ~/.bashrc
+source devel/setup.bash
+
+# 원격 컴퓨터의 bashrc 파일에도 앞선 설정과 같이 수정해야 함
+# 단, ROS_MASTER_URI는 카메라가 연결된 컴퓨터의 IP이며,
+# ROS_HOSTNAME은 원격 컴퓨터의 IP로 입력해야 함
+
+roslaunch usb_cam usb_cam-test.launch

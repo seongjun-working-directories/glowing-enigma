@@ -1,0 +1,127 @@
+sudo apt-get install ros-noetic-teleop-twist-*
+sudo apt-get install ros-noetic-teleop-twist-keyboard
+sudo apt-get install ros-noetic-teleop-twist-joy
+
+[ Terminal 1 ] roscore
+[ Terminal 2 ] rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+[ Terminal 3 ] rostopic echo /cmd_vel
+
+https://m.blog.naver.com/leesk55/222126081083
+
+Gilbert strang Linear Algebra and its application 7/e
+
+Introduction to Linear Algebra International Edition | Paperback
+
+===
+
+lsusb
+ls -la /dev/input/by-id/
+sudo chmod 777 /dev/input/js1
+sudo apt-get install ros-noetic-joy
+rosrun joy joy_node
+rosparam set joy_node/dev "/dev/input/js1"
+roscore
+rosrun joy joy_node
+rostopic echo /joy
+
+rostopic pub -1 /joy sensor_msgs/Joy "header:
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+axes:
+- 0
+buttons:
+- 0"
+
+===
+
+원격 접속을 시도하는 컴퓨터에서 `Solution T2 - 5G` 와이파이에 연결
+ssh cona@192.168.2.2 -XC
+roscore
+rosnode list
+roslaunch servinggo servinggo_all_m10.launch
+
+===
+
+~/.bashrc
+
+export ROS_MASTER_URI=http://192.168.2.2:11311/
+export ROS_IP=192.168.2.2
+
+#export ROS_MASTER_URI=http://127.0.0.1:11311/
+#export ROS_IP=127.0.0.1
+
+#export DISPLAY=localhost:0.0
+
+source /opt/ros/noetic/setup.bash
+#source /home/cona/slam_toolbox/devel/setup.bash
+#source /home/cona/navigation/devel/setup.bash
+#source /home/cona/CoNA-Robots/devel/setup.bash
+source /home/cona/CoNA_Navi/install/setup.bash
+
+===
+
+<launch>
+
+	<!-- include file="$(find astra_camera)/launch/stereo_s_u3.launch"></include -->
+	<!-- include file="$(find depth2laser)/launch/depth2laser.launch"></include -->
+
+	<node name="servinggo" pkg="servinggo" type="servinggo_node" output="screen">
+		<param name="port" type="string" value="/dev/servinggo"/>
+		<param name="baudrate" type="string" value="19200"/>
+		<param name="rate" type="double" value="15"/>
+	</node>
+
+	<node name="front_laser_m10" pkg="lsm10_v2" type="lsm10_v2">
+	    <param name="scan_topic" value="scan1"/>
+        <param name="frame_id" value="laser1"/>
+        <param name="serial_port" value="/dev/front_laser"/>
+        <param name="baud_rate" value="460800" />
+	    <param name="angle_disable_min" value="-185.0"/>
+    	<param name="angle_disable_max" value="-85.0"/>
+    	<param name="min_range" value="0.0"/>
+    	<param name="max_range" value="100.0"/>
+	</node>
+
+    <node name="rear_laser_m10" pkg="lsm10_v2" type="lsm10_v2">
+        <param name="scan_topic" value="scan2"/>
+        <param name="frame_id" value="laser2"/>
+        <param name="serial_port" value="/dev/rear_laser"/>
+        <param name="baud_rate" value="460800" />
+        <param name="angle_disable_min" value="-185.0"/>
+        <param name="angle_disable_max" value="-85.0"/>
+        <param name="min_range" value="0.0"/>
+        <param name="max_range" value="100.0"/>
+    </node>
+
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+		<param name="destination_frame" value="laser_multi"/>
+		<param name="cloud_destination_topic" value="/merged_cloud"/>
+		<param name="scan_destination_topic" value="/scan_multi"/>
+		<param name="laserscan_topics" value ="/scan1 /scan2" />
+		<param name="angle_min" value="-3.141592"/>
+		<param name="angle_max" value="3.141592"/>
+		<param name="angle_increment" value="0.004363323096185923"/>
+		<param name="scan_time" value="0.1"/>
+		<param name="range_min" value="0.01"/>
+		<param name="range_max" value="25.0"/>
+	</node>
+
+	<node name="sound_player" pkg="sound_player" type="sound_player_node" output="screen"> 
+		<param name="sub_topic_name" type="string" value="/sound_player"/>
+	</node>
+
+	<node name="node" pkg="bag" type="node" output="screen">
+        <param name="path" type="string" value="/home/cona/bag/"/> #save path
+        <param name="duration" type="double" value="60"/> #second
+        <param name="split_num" type="int" value="60"/> #number of split bag files
+
+		#sub_topic can be 1 to 10
+        <param name="sub_topic1" type="string" value="/servinggo/state"/> #sub_topic1
+        <param name="sub_topic2" type="string" value="/cona/Grid/Grid"/> #sub_topic2
+        <param name="sub_topic3" type="string" value="/cona/log"/> #sub_topic3
+	</node>
+
+</launch>

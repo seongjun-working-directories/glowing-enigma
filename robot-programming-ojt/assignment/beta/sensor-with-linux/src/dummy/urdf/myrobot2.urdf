@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot name="myrobot2">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.21 0.297 0.06" />
+        <origin rpy="0 0 0" xyz="0 0 0" />
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <material name="blue"><color rgba="0.2 0.2 1 1" /></material>
+    </visual>
+  </link>
+  <joint name="camera01_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="camera01" />
+    <origin xyz="0 0.1475 0.06" />
+  </joint>
+  <link name="camera01">
+    <visual>
+      <geometry><box size="0.065 0.01 0.0228" /></geometry>
+      <material name="orange"><color rgba="1 0.3 0.1 1" /></material>
+    </visual>
+  </link>
+  <joint name="LeftLidar_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="LeftLidar" />
+    <origin xyz="-0.065 0.1085 0.060" />
+  </joint>
+  <link name="LeftLidar">
+    <visual>
+      <geometry><cylinder radius="0.04" length="0.04" /></geometry>
+      <material name="red"><color rgba="1 0 0 1" /></material>
+    </visual>
+  </link>
+  <joint name="RightLidar_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="RightLidar" />
+    <origin xyz="0.065 -0.1085 0.060" />
+  </joint>
+  <link name="RightLidar">
+    <visual>
+      <geometry><cylinder radius="0.04" length="0.04" /></geometry>
+      <material name="red"><color rgba="1 0 0 1" /></material>
+    </visual>
+  </link>
+</robot>

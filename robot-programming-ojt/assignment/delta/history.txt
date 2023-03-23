@@ -1,0 +1,226 @@
+# 원격 접속을 시도하는 컴퓨터에서 `Solution T2 - 5G` 와이파이에 연결
+# Servinggo에 조이스틱 동글이 USB 연결
+
+[ Terminal 1 ]
+
+$ ssh cona@192.168.2.2 -XC
+
+$ sudo apt-get install ros-noetic-joy
+$ sudo apt-get install ros-noetic-teleop-twist-*
+$ sudo apt-get install ros-noetic-teleop-twist-keyboard
+$ sudo apt-get install ros-noetic-teleop-twist-joy
+
+$ lsusb
+
+###
+Bus 002 Device 004: ID 05e3:0626 Genesys Logic, Inc.
+Bus 002 Device 003: ID 05e3:0620 Genesys Logic, Inc.
+Bus 002 Device 002: ID 05e3:0620 Genesys Logic, Inc. USB3.1 Hub
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 010: ID 31b2:0011
+Bus 001 Device 009: ID 05e3:0610 Genesys Logic, Inc. 4-port hub
+Bus 001 Device 007: ID 32e4:9422 GenesysLogic USB2.1 Hub
+Bus 001 Device 005: ID 10c4:ea60 Silicon Labs CP210x UART Bridge
+Bus 001 Device 008: ID 10c4:ea60 Silicon Labs CP210x UART Bridge
+Bus 001 Device 006: ID 11c0:5500 Betop FT232R USB UART
+Bus 001 Device 004: ID 05e3:0610 Genesys Logic, Inc. 4-port hub
+Bus 001 Device 003: ID 05e3:0610 Genesys Logic, Inc. 4-port hub
+Bus 001 Device 002: ID 0403:6001 Future Technology Devices International, Ltd FT232 Serial (UART) IC
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+###
+
+$ ls -la /dev/input/by-id/
+
+###
+total 0
+drwxr-xr-x 2 root root 120 10월  4 10:49 .
+drwxr-xr-x 4 root root 340 10월  4 10:49 ..
+lrwxrwxrwx 1 root root   9 10월  4 10:49 usb-H264_USB_Camera_H264_USB_Camera_2020032801-event-if00 -> ../event4
+lrwxrwxrwx 1 root root   9 10월  4 10:49 usb-HJC_Game_USB_Gamepad-event-joystick -> ../event2
+lrwxrwxrwx 1 root root   6 10월  4 10:49 usb-HJC_Game_USB_Gamepad-joystick -> ../js0
+lrwxrwxrwx 1 root root   9 10월  4 10:49 usb-KTMicro_KT_USB_AUDIO_214b206000000178-event-if03 -> ../event3
+###
+
+$ sudo chmod 777 /dev/input/js0
+
+$ rosparam set joy_node/dev "/dev/input/jsX"
+
+$ roscore
+
+
+===
+
+
+[ Terminal 2 ]
+
+$ ssh cona@192.168.2.2 -XC
+
+$ rosnode list
+
+###
+/rosout
+###
+
+$ roslaunch servinggo servinggo_all_m10.launch
+
+```servinggo_all_m10.launch
+<launch>
+
+	<!-- include file="$(find astra_camera)/launch/stereo_s_u3.launch"></include -->
+	<!-- include file="$(find depth2laser)/launch/depth2laser.launch"></include -->
+
+	<node name="servinggo" pkg="servinggo" type="servinggo_node" output="screen"> 
+		<param name="port" type="string" value="/dev/servinggo"/>
+		<param name="baudrate" type="string" value="19200"/>
+		<param name="rate" type="double" value="15"/>
+	</node>
+
+	<node name="front_laser_m10" pkg="lsm10_v2" type="lsm10_v2">
+	    <param name="scan_topic" value="scan1"/>
+        <param name="frame_id" value="laser1"/>
+        <param name="serial_port" value="/dev/front_laser"/>
+        <param name="baud_rate" value="460800" />
+	    <param name="angle_disable_min" value="-185.0"/>
+    	<param name="angle_disable_max" value="-85.0"/>
+    	<param name="min_range" value="0.0"/>
+    	<param name="max_range" value="100.0"/>
+	</node>
+
+    <node name="rear_laser_m10" pkg="lsm10_v2" type="lsm10_v2">
+        <param name="scan_topic" value="scan2"/>
+        <param name="frame_id" value="laser2"/>
+        <param name="serial_port" value="/dev/rear_laser"/>
+        <param name="baud_rate" value="460800" />
+        <param name="angle_disable_min" value="-185.0"/>
+        <param name="angle_disable_max" value="-85.0"/>
+        <param name="min_range" value="0.0"/>
+        <param name="max_range" value="100.0"/>
+    </node>
+
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+		<param name="destination_frame" value="laser_multi"/>
+		<param name="cloud_destination_topic" value="/merged_cloud"/>
+		<param name="scan_destination_topic" value="/scan_multi"/>
+		<param name="laserscan_topics" value ="/scan1 /scan2" />
+		<param name="angle_min" value="-3.141592"/>
+		<param name="angle_max" value="3.141592"/>
+		<param name="angle_increment" value="0.004363323096185923"/>
+		<param name="scan_time" value="0.1"/>
+		<param name="range_min" value="0.01"/>
+		<param name="range_max" value="25.0"/>
+	</node>
+
+	<node name="sound_player" pkg="sound_player" type="sound_player_node" output="screen"> 
+		<param name="sub_topic_name" type="string" value="/sound_player"/>
+	</node>
+
+	<node name="node" pkg="bag" type="node" output="screen">
+        <param name="path" type="string" value="/home/cona/bag/"/> #save path
+        <param name="duration" type="double" value="60"/> #second
+        <param name="split_num" type="int" value="60"/> #number of split bag files
+
+		#sub_topic can be 1 to 10
+        <param name="sub_topic1" type="string" value="/servinggo/state"/> #sub_topic1
+        <param name="sub_topic2" type="string" value="/cona/Grid/Grid"/> #sub_topic2
+        <param name="sub_topic3" type="string" value="/cona/log"/> #sub_topic3
+	</node>
+
+</launch>
+```
+
+
+===
+
+
+[ Terminal 3 ]
+
+$ ssh cona@192.168.2.2 -XC
+
+$ rosnode list
+
+###
+/front_laser_m10
+/laserscan_multi_merger
+/node
+/rear_laser_m10
+/rosout
+/servinggo
+/sound_player
+###
+
+rosrun joy joy_node
+rostopic echo /joy
+
+
+===
+
+
+[ Terminal 4 (Optional) ]
+
+$ cd ~/CoNA-Robots
+
+$ code
+
+$ roslaunch servinggo servinggo_all_m10.launch
+
+# 출발
+
+$ rostopic pub /cmd_vel geometry_msgs/Twist "linear:
+  x: 0.1
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.1"
+
+# 정지
+
+$ rostopic pub /cmd_vel geometry_msgs/Twist "linear:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.0"
+
+
+===
+
+
+여기까지의 과정으로 Servinggo 스켈레톤 로봇 연결 및 해당 로봇에의 조이스틱 연결을 확인.
+
+
+===
+
+
+/*
+    1
+    |
+1 - + - -1
+    |
+    -1
+
+북 => axes: [0.0, 1.0, 0.0, 0.0, 0.0, 0.0]
+남 => axes: [-0.0, -1.0, 0.0, 0.0, 0.0, 0.0]
+동 => axes: [-1.0, -0.0, 0.0, 0.0, 0.0, 0.0]
+서 => axes: [1.0, -0.0, 0.0, 0.0, 0.0, 0.0]
+
+북동 => axes: [-1.0, 1.0, 0.0, 0.0, 0.0, 0.0]
+북서 => axes: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0]
+남동 => axes: [-1.0, -1.0, 0.0, 0.0, 0.0, 0.0]
+남서 => axes: [1.0, -1.0, 0.0, 0.0, 0.0, 0.0]
+*/
+
+
+===
+
+ls -la /dev/front_laser
+ls -la /dev/rear_laser
+
+roslaunch servinggo servinggo_all_m10.launch
+
+rostopic echo /scan1
+
+===

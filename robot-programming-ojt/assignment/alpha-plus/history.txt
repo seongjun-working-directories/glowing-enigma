@@ -1,0 +1,10 @@
+---
+
+// face_detection
+cd histogram-practice/src
+catkin_init_workspace
+catkin_create_pkg face_detection image_transport cv_bridge sensor_msgs rospy roscpp std_msgs
+cd face_detection/src
+touch face_detector.cpp
+catkin_make
+rosrun face_detection face_detector

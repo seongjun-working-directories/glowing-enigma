@@ -1,0 +1,22 @@
+{
+  "name": "dual-band-wifi-router",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Park Seongjun <hamishcode@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "image-download": "^2.1.0",
+    "image-type": "^5.1.0",
+    "json-as-xlsx": "^2.4.6",
+    "puppeteer": "^18.2.1",
+    "xlsx-to-json": "^0.3.0"
+  },
+  "devDependencies": {
+    "image-downloader": "^4.3.0"
+  }
+}

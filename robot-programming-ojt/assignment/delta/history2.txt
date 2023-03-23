@@ -1,0 +1,294 @@
+// CoNA-Robots/src/servinggo/include/servinggo/DevJoyController.h
+#pragma once
+
+#include "ros/ros.h"
+#include "sensor_msgs/Joy.h"
+#include "geometry_msgs/Twist.h"
+
+
+class DevJoyController {
+
+private:
+
+    ros::NodeHandle nh;
+
+    ros::Subscriber sub;    // 조이스틱이 보내는 publish 를 받아서
+    ros::Publisher pub;     // /cmd_vel로 publish 함
+
+    double linear;
+    double angular;
+
+    double max_linear;
+    double max_angular;
+
+public:
+
+    DevJoyController(double max_linear,double max_angular);
+    ~DevJoyController();
+
+    void joyCallback(const sensor_msgs::Joy &msg);
+
+    void setLinear(double linear) {
+        this->linear = linear;
+    }
+    void setAngular(double angular) {
+        this->angular = angular;
+    }
+
+    double getLinear() {
+        return this->linear;
+    }
+
+    double getAngular() {
+        return this-> angular;
+    }
+
+    double getMaxLinear() {
+        return this->max_linear;
+    }
+
+    double getMaxAngular() {
+        return this->max_angular;
+    }
+
+};
+
+
+class DevJoyController {
+
+private:
+
+    ros::NodeHandle nh;
+
+    ros::Subscriber sub;    // 조이스틱이 보내는 publish 를 받아서
+    ros::Publisher pub;     // /cmd_vel로 publish 함
+
+    double linear;
+    double angular;
+
+public:
+
+    DevJoyController();
+    ~DevJoyController();
+
+    void joyCallback(const sensor_msgs::Joy &msg);
+
+    void setLinear(double linear) {
+        this->linear = linear;
+    }
+    void setAngular(double angular) {
+        this->angular = angular;
+    }
+
+    double getLinear() {
+        return this->linear;
+    }
+
+    double getAngular() {
+        return this-> angular;
+    }
+
+};
+
+
+===
+
+
+// CoNA-Robots/src/servinggo/launch/servinggo_all_m10.launch
+<launch>
+
+	<!-- include file="$(find astra_camera)/launch/stereo_s_u3.launch"></include -->
+	<!-- include file="$(find depth2laser)/launch/depth2laser.launch"></include -->
+
+	<node name="joy_node" pkg="joy" type="joy_node" />
+
+	<node name="servinggo" pkg="servinggo" type="servinggo_node" output="screen"> 
+		<param name="port" type="string" value="/dev/servinggo"/>
+		<param name="baudrate" type="string" value="19200"/>
+		<param name="rate" type="double" value="15"/>
+	</node>
+
+	<node name="front_laser_m10" pkg="lsm10_v2" type="lsm10_v2">
+	    <param name="scan_topic" value="scan1"/>
+        <param name="frame_id" value="laser1"/>
+        <param name="serial_port" value="/dev/front_laser"/>
+        <param name="baud_rate" value="460800" />
+	    <param name="angle_disable_min" value="-185.0"/>
+    	<param name="angle_disable_max" value="-85.0"/>
+    	<param name="min_range" value="0.0"/>
+    	<param name="max_range" value="100.0"/>
+	</node>
+
+    <node name="rear_laser_m10" pkg="lsm10_v2" type="lsm10_v2">
+        <param name="scan_topic" value="scan2"/>
+        <param name="frame_id" value="laser2"/>
+        <param name="serial_port" value="/dev/rear_laser"/>
+        <param name="baud_rate" value="460800" />
+        <param name="angle_disable_min" value="-185.0"/>
+        <param name="angle_disable_max" value="-85.0"/>
+        <param name="min_range" value="0.0"/>
+        <param name="max_range" value="100.0"/>
+    </node>
+
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+		<param name="destination_frame" value="laser_multi"/>
+		<param name="cloud_destination_topic" value="/merged_cloud"/>
+		<param name="scan_destination_topic" value="/scan_multi"/>
+		<param name="laserscan_topics" value ="/scan1 /scan2" />
+		<param name="angle_min" value="-3.141592"/>
+		<param name="angle_max" value="3.141592"/>
+		<param name="angle_increment" value="0.004363323096185923"/>
+		<param name="scan_time" value="0.1"/>
+		<param name="range_min" value="0.01"/>
+		<param name="range_max" value="25.0"/>
+	</node>
+
+	<node name="sound_player" pkg="sound_player" type="sound_player_node" output="screen"> 
+		<param name="sub_topic_name" type="string" value="/sound_player"/>
+	</node>
+
+	<node name="node" pkg="bag" type="node" output="screen">
+        <param name="path" type="string" value="/home/cona/bag/"/> #save path
+        <param name="duration" type="double" value="60"/> #second
+        <param name="split_num" type="int" value="60"/> #number of split bag files
+
+		#sub_topic can be 1 to 10
+        <param name="sub_topic1" type="string" value="/servinggo/state"/> #sub_topic1
+        <param name="sub_topic2" type="string" value="/cona/Grid/Grid"/> #sub_topic2
+        <param name="sub_topic3" type="string" value="/cona/log"/> #sub_topic3
+	</node>
+
+	<node name="dev" pkg="servinggo" type="dev" output="screen">
+		<param name="max_linear" type="double" value="0.2" />
+		<param name="max_angular" type="double" value="0.2" />
+	</node>
+
+</launch>
+
+
+===
+
+
+// CoNA-Robots/src/servinggo/src/dev.cpp
+#include "ros/ros.h"
+#include "sensor_msgs/Joy.h"
+#include "geometry_msgs/Twist.h"
+#include "servinggo/DevJoyController.h"
+
+DevJoyController::DevJoyController(double max_linear,double max_angular) {
+    sub = nh.subscribe("/joy", 1, &DevJoyController::joyCallback, this);
+    pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
+    if (max_linear > 0.5 || max_angular > 0.5) {
+        this->max_linear = 0.33;
+        this->max_angular = 0.33;
+        return;
+    }
+    this->max_linear = max_linear;
+    this->max_angular = max_angular;
+}
+
+DevJoyController::~DevJoyController() {
+
+};
+
+void DevJoyController::joyCallback(const sensor_msgs::Joy &msg) {
+    geometry_msgs::Twist toCmdVel;
+
+    // std::cout << "max_linear>>>" << max_linear << std::endl;
+    // std::cout << "max_angular>>>" << max_angular << std::endl;
+
+    // NORTH(0, 1) OR SOUTH(0, -1) -> this value is for "linear x"
+    // Max : Min = 1 : -1
+    // Half the range of max, min values
+    DevJoyController::setLinear(msg.axes[1] * DevJoyController::getMaxLinear());
+
+    // EAST(-1, 0) OR WEST(1, 0) -> this value is for "angular z"
+    // Max : Min = 1 : -1
+    // Half the range of max, min values
+    DevJoyController::setAngular(msg.axes[0] * DevJoyController::getMaxAngular());
+
+    toCmdVel.linear.x = DevJoyController::getLinear();
+    toCmdVel.angular.z = DevJoyController::getAngular();
+
+    pub.publish(toCmdVel);
+};
+
+int main(int argc, char **argv) {
+
+    ros::init(argc, argv, "dev");
+
+    double max_linear, max_angular;
+    max_linear = 0;
+    max_angular = 0;
+
+    ros::NodeHandle nh_param("~");
+    nh_param.getParam("max_linear", max_linear);
+    nh_param.getParam("max_angular", max_angular);
+
+    DevJoyController devJoyController(max_linear, max_angular);
+
+    while (ros::ok()) {
+        ros::spin();
+    }
+
+    return 0;
+}
+
+
+===
+
+
+cmake_minimum_required(VERSION 3.0.2)
+project(servinggo)
+
+add_compile_options(-std=c++11)
+
+find_package(catkin REQUIRED COMPONENTS
+  geometry_msgs
+  nav_msgs
+  roscpp
+  std_msgs
+  tf
+)
+
+find_package(OpenCV REQUIRED)
+
+find_library(jsoncpp_LIB NAMES jsoncpp PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib NO_DEFAULT_PATH)
+message("jsoncpp_LIB: ${jsoncpp_LIB}")
+
+catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES servinggo
+#  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs
+#  DEPENDS system_lib
+)
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
+
+add_executable(${PROJECT_NAME}_node src/servinggo_node.cpp)
+
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${jsoncpp_LIB}
+)
+
+install(TARGETS ${PROJECT_NAME}_node 
+  DESTINATION /home/$ENV{USER}/git/CoNA_Navi/src/${PROJECT_NAME}/lib 
+)
+
+install(DIRECTORY launch lib udev_rules 
+  DESTINATION /home/$ENV{USER}/git/CoNA_Navi/src/${PROJECT_NAME}
+)
+
+add_executable(dev src/dev.cpp)
+target_link_libraries(dev ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+
+===
+
+
+catkin_create_pkg joycontroller geometry_msgs nav_msgs roscpp std_msgs tf

@@ -1,0 +1,136 @@
+ifconfig
+
+'''
+enp0s31f6: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.42.0.88  netmask 255.255.255.0  broadcast 10.42.0.255
+        inet6 fe80::a1df:746:d9c8:a249  prefixlen 64  scopeid 0x20<link>
+        ether a8:a1:59:93:96:cb  txqueuelen 1000  (Ethernet)
+        RX packets 261555  bytes 283684054 (283.6 MB)
+        RX errors 0  dropped 154  overruns 0  frame 0
+        TX packets 74717  bytes 14983019 (14.9 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 16  memory 0xa3300000-a3320000
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 207483  bytes 10955438 (10.9 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 207483  bytes 10955438 (10.9 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlx705dccffb1c5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.50.161  netmask 255.255.255.0  broadcast 192.168.50.255
+        inet6 fe80::51a5:f1a7:5f12:af0f  prefixlen 64  scopeid 0x20<link>
+        ether 70:5d:cc:ff:b1:c5  txqueuelen 1000  (Ethernet)
+        RX packets 25885  bytes 11293621 (11.2 MB)
+        RX errors 0  dropped 3270  overruns 0  frame 0
+        TX packets 7553  bytes 1064376 (1.0 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+'''
+
+sudo vim ~/.bashrc
+
+'''
+source /opt/ros/noetic/setup.bash
+
+# Set ROS Network
+export ROS_HOSTNAME=10.42.0.88
+export ROS_MASTER_URI=http://10.42.0.88:11311
+'''
+
+source ~/.bashrc
+
+sudo apt-get update
+sudo apt-get install ros-noetic-image-*
+sudo apt-get install ros-noetic-rqt-image-view
+
+# rosrun usb_cam usb_cam image:=/image_raw
+# sudo ssh cona0901@10.42.0.1
+
+[
+  현재 보드와 PC가 유선 연결되어 있는 상태이며, ros master는 PC를 기준으로 돌아감
+  따라서 우선 PC에서 `roscore`를 실행시키고,
+  보드에서 `roslaunch usb_cam usb_cam-test.launch`(node name ="usb_cam"만 있는 launch 파일)을 실행한 뒤,
+  다시 PC에서 `rosrun image_view image_view image:=/image_raw`를 입력
+  위와 같이 할 경우, PC의 `rviz`에서 Add > Image Topic > /usb_cam/image_raw를 통해 publish된 카메라 화면을 볼 수 있음
+]
+
+sudo apt install openssh-server
+
+===
+
+ssh cona0901@10.42.0.1
+
+sudo apt update
+
+cd ~/.ssh
+
+ssh-keygen
+
+cat ~/.ssh/id_rsa.pub
+
+[
+  결과값:
+  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClmaeTiCUA5EXIbR9ZXuzrQ/5C4FdMgOQIWZG8jLKERQ40VBcJg71e59NbfC5B+MK5C5JoZFYEEwJYv8QQVAn6zEh3d4HqGj+tUA7KKwWBgjzaRiFYVjYPEXOQxZGpZlt1Cju0sQu8jm10t6CMKkbotGTXwuJe+LIPlRsMvCnUGRwoD+R/sXECI5TEWf45Mu1//nKtDMNTsEccw6KF1/lpYUdFRe0tmGPi6/OIRHUrP1UNYLp6v/A/5lnR17r+EFmj9+MQa9GKXlSGEXYzygfpCUixy2n7szRMW5R1avyv9xIn10SqMNGfX2KDxElM3FxekABRldbSgs8yHu+DSsTsJLkQw/6fcsuN+exAfCp2lqyORfeFmZCLHGGyWJArykufLQjYLpjc/snXzh7uduI2GgSYkEW+125uThpc82XLmiQDe84L/OKCciKM0NQrWfoQPJkvPFhwPovg37brPDa5vajoHyiLwA4kN7Kt/KkhEPGuLGfKgJRjgOkHVcIRac8= cona0901@cona0901-NUC11PAHi7
+]
+
+exit
+
+ssh-copy-id -f  cona0901@10.42.0.1
+
+===
+
+sudo apt install sshpass
+
+sudo apt-get install ros-noetic-rosbridge-suite
+
+roslaunch rosbridge_server rosbridge_websocket.launch
+
+===
+
+sudo ufw allow from 10.0.1.0/24
+sudo ufw allow to 10.0.1.0/24
+
+===
+
+~/.ssh 에서 known_hosts 기록을 삭제함
+
+===
+
+sudo vim /etc/hosts에
+pc-side에서는
+'''
+10.42.0.1   cona0901-NUC11PAHi7
+'''
+을 추가하고,
+board-side에서는
+'''
+10.42.0.88  seongjun-laptop
+'''
+을 추가함
+
+===
+
+board-side에서
+'''
+sudo apt install ros-noetic-usb-cam
+'''
+
+===
+
+헤르츠를 확인하고자 하는 경우,
+
+[Terminal 1]
+roslaunch usb_cam usb_cam-test.launch
+
+[Terminal 2]
+rostopic hz /usb_cam/image_raw
+
+===
+
+cd ~/pc-side/src
+catkin_create_pkg cv_image_viewer image_transport cv_bridge sensor_msgs rospy roscpp std_msgs
+cd ..
+catkin_make

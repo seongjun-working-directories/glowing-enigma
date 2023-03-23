@@ -1,0 +1,51 @@
+<!-- 원하는 urdf -->
+<!-- xyz 단위는 meter임을 알 수 있음 -->
+<!-- <?xml version="1.0"?>
+<robot name="dce_urdf">
+  <link name="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+  <link name="camera_link">
+  </link>
+  <joint name="camera_link" type="fixed">
+    <parent link="base_link" />
+    <child link="camera_link" />
+    <origin xyz="-1.17 -0.165 0.735" rpy="0 0.3 0.019" />
+  </joint>
+</robot> -->
+
+<!-- <?xml version="1.0"?>
+<robot name="dce_urdf">
+  <link name="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+  <link name="camera_link">
+  </link>
+  <joint name="camera_link" type="fixed">
+    <parent link="base_link" />
+    <child link="camera_link" />
+    <origin xyz="-1.178 -0.178 0.735" rpy="0 0.3 0.019" />
+  </joint>
+</robot> -->
+
+<?xml version="1.0"?>
+<robot name="dce_urdf">
+  <link name="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+  <link name="camera_link">
+  </link>
+  <joint name="camera_link" type="fixed">
+    <parent link="base_link" />
+    <child link="camera_link" />
+    <origin xyz="-0.173718 -0.225919 0.434033" rpy="0 0 0" />
+  </joint>
+</robot>
+
+<!--
+[결과1] >>> x=-0.340539, y=1.225243, z=0.254503
+[결과2] >>> roll=-1.877805, tilt=1.065015, pan=-0.305038
+
+[결과1] >>> x=0.341741, y=1.224927, z=-0.253942
+[결과2] >>> roll=2.469961, tilt=-1.065466, pan=-3.446775
+-->

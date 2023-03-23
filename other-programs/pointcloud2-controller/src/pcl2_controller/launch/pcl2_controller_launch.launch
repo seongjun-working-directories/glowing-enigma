@@ -1,0 +1,11 @@
+<launch>
+  <include file="$(find astra_camera)/launch/stereo_s_u3.launch" />
+
+  <param name="robot_description" textfile="$(find pcl2_controller)/urdf/pcl2_controller_urdf.urdf" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <node name="pcl2_controller" pkg="pcl2_controller" type="pcl2_controller_main" output="screen" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pcl2_controller)/rviz/pcl2_controller_rviz.rviz" required="true" />
+</launch>

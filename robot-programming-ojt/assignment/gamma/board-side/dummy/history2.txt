@@ -1,0 +1,25 @@
+카메라명 : 펭카(PengCa) 400만 화소 마이크 내장 웹캠 PCWEB400
+(링크 - https://www.coupang.com/vp/products/5064588239?itemId=6844107369&vendorItemId=74136948880&src=1042503&spec=10304991&addtag=400&ctag=5064588239&lptag=10304991I6844107369&itime=20220926183943&pageType=PRODUCT&pageValue=5064588239&wPcid=16641851237588753238786&wRef=&wTime=20220926183943&redirect=landing&gclid=EAIaIQobChMIqs2Q05Sy-gIV1ddMAh1TfwTrEAQYAyABEgLgWPD_BwE&campaignid=16513721924&adgroupid=&isAddedCart=)
+보드명 : Intel® NUC 11 Performance kit - NUC11PAHi7
+(링크 - https://ark.intel.com/content/www/us/en/ark/products/205073/intel-nuc-11-performance-kit-nuc11pahi7.html)
+
+===
+
+(board-side에서 시작)
+mkdir src
+cd src
+catkin_init_workspace
+git clone https://github.com/ros-drivers/usb_cam.git
+cd ..
+catkin_make
+
+source devel/setup.bash
+
+ls -ltr /dev/video*   # /dev에 usb 캠을 꼽을 경우 생기는 파일 후보군 : video0, video1
+sudo apt install v4l-utils
+v4l2-ctl --list-formats-ext
+
+# usb_cam-test.launch 파일 수정
+
+source devel/setup.bash
+roslaunch usb_cam usb_cam-test.launch

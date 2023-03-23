@@ -1,0 +1,28 @@
+cf. [[ bashrc ]]
+'''
+source /opt/ros/noetic/setup.bash
+source ~/coga-ojt-tmp/sensor-with-linux/devel/setup.bash
+~/coga-ojt-tmp/sensor-with-linux/src/ros_astra_camera/scripts/create_udev_rules
+'''
+
+===
+(시작 위치 : ~/coga-ojt-tmp)
+
+source ~/.bashrc
+sudo ls -la /dev/ttyLiDAR*
+sudo chmod 777 /dev/ttyLiDAR
+sudo chmod 777 /dev/ttyLiDAR2
+sudo ls -la /dev/ttyLiDAR*
+cd sensor-with-linux
+source devel/setup.bash
+roslaunch lsm10_v2 merged_lsm10_v2.launch
+
+===
+(rviz가 열리면 file > open config 에서 ~/coga-ojt-tmp/sensor-with-linux/test.rviz 를 선책)
+
+urbnum 10034
+urbnum 9873
+
+SUBSYSTEM=="tty", ATTRS{devpath}=="7.1", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", ATTRS{serial}=="0001", SYMLINK+="ttyLiDAR"
+SUBSYSTEM=="tty", ATTRS{devpath}=="7.2", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", ATTRS{serial}=="0001", SYMLINK+="ttyLiDAR2"
+

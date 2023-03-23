@@ -1,0 +1,15 @@
+source /opt/ros/noetic/setup.bash
+
+source ~/coga-ojt/coga-ojt-tmp/sensor-with-linux/devel/setup.bash
+
+# About ros_astra_camera
+~/coga-ojt/coga-ojt-tmp/sensor-with-linux/src/ros_astra_camera/scripts/create_udev_rules
+
+# Set ROS Network
+export ROS_HOSTNAME=localhost
+export ROS_MASTER_URL=http://localhost:11311
+
+# Set ROS alias command
+alias cw='cd ~/coga-ojt/coga-ojt-tmp/sensor-with-linux/'
+alias cs='cd ~/coga-ojt/coga-ojt-tmp/sensor-with-linux/src'
+alias cm='cd ~/coga-ojt/coga-ojt-tmp/sensor-with-linux/ && catkin_make'

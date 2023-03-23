@@ -1,0 +1,32 @@
+<!-- 일반적으로 노드의 이름이 같으면 같은 이름의 노드끼리 충돌하게 되는데 -->
+<!-- 이 경우, 작동하던 프로그램이 종료되어 버림 -->
+<!-- 따라서 아래와 같이 이름을 변경하여 이름이 같은 노드끼리의 충돌을 막을 수 있음 -->
+<launch>
+
+  <!-- node 태그 : roslaunch로 실행할 노드를 기술 -->
+  <!-- pkg 옵션 : 패키지의 이름 -->
+  <!-- type 옵션 : 실제 실행할 노드의 이름 -->
+  <!-- name 옵션 : 위 type에 해당하는 노드가 실행될 때 붙여지는 이름 -->
+
+  <!--
+  <node pkg="ros_tutorials_topic" type="topic_publisher" name="topic_publisher1" />
+  <node pkg="ros_tutorials_topic" type="topic_subscriber" name="topic_subscriber1" />
+  <node pkg="ros_tutorials_topic" type="topic_publisher" name="topic_publisher2" />
+  <node pkg="ros_tutorials_topic" type="topic_subscriber" name="topic_subscriber2" />
+  -->
+
+  <!-- 위와 같이 group 없이 node 4개를 동작하게 되면 -->
+  <!-- pub1이 sub1, sub2에게 모두 송신하고, pub2가 sub1, sub2에게 모두 송신함 -->
+  <!-- 따라서 다음과 같이 group을 묶어서 특정 pub은 특정 sub에게만 보내도록 할 수 있음 -->
+
+  <group ns="ns1">
+    <node pkg="ros_tutorials_topic" type="topic_publisher" name="topic_publisher1" />
+    <node pkg="ros_tutorials_topic" type="topic_subscriber" name="topic_subscriber1" />
+  </group>
+
+  <group ns="ns2">
+    <node pkg="ros_tutorials_topic" type="topic_publisher" name="topic_publisher2" />
+    <node pkg="ros_tutorials_topic" type="topic_subscriber" name="topic_subscriber2" />
+  </group>
+
+</launch>

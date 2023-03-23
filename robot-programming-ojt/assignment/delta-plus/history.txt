@@ -1,0 +1,10 @@
+# ~/delta-plus에서 시작
+
+$ cd src/
+$ catkin_init_workspace
+$ cd ../
+$ catkin_make
+$ cd src/
+$ catkin_create_pkg turtleToServinggo geometry_msgs roscpp turtlesim std_msgs
+
+# joy의 스틱이 max 값에 도달한 채 일정시간 유지되면 해당 시간 동안 publishing 되지 않으므로 publishing 쓰레드를 따로 구현해야 함

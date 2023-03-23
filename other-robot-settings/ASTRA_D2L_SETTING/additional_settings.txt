@@ -1,0 +1,17 @@
+1.
+ros_astra_camera(/camera/depth/points)가 어느정도 기울어져있는지 설정하려면 urdf를 수정해야 함
+- $ ssh cona@192.168.2.2 -XC
+- $ cd ~/CoNA_Navi/install/share/cona/urdf/
+- $ vim cona.urdf
+- (이미지파일은 `urdf_위치.png`를 확인)
+
+2. KT_SMART_CHAIR auto gui on/off
+
+- # roslaunch 자동 켜기/끄기
+- # After Gnome-Session-Properties
+- # bringup & gui --> off
+- # 수동으로 센서 켜기
+- $ roslaunch cona smartchair.launch
+- $ ./bringup_gui_server.sh
+
+3. 192.168.2.2:5000 으로 chrome kt smart chair 화면에 접속할 수 있음

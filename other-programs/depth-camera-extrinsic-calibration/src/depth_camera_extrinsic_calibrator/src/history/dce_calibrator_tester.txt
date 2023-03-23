@@ -1,0 +1,96 @@
+// for (std::vector<std::vector<cv::Vec2f>>::iterator outer_iterator = found_points_list.begin(); outer_iterator != found_points_list.end(); outer_iterator++) {
+//   std::vector<cv::Vec2f> iterator_element = *outer_iterator;
+//   int count = 0;
+//   for (std::vector<cv::Vec2f>::iterator inner_iterator = iterator_element.begin(); inner_iterator != iterator_element.end(); inner_iterator++) {
+//     count++;
+//     // [TEST] printf("%d번째 좌표 : (%lf %lf)\n", count, (*inner_iterator)[0], (*inner_iterator)[1]);
+//   }
+//   // [TEST] printf("\n\n");
+// }
+// 이미지 좌표계를 알았으니, 실제 extrinsic R|t를 구하는 함수와 해당 R|t를 텍스트 파일로 저장하는 함수가 필요함
+
+---
+
+/* [TEST]
+for (std::vector<cv::Vec2f>::iterator found_points_iterator = found_points.begin(); found_points_iterator < found_points.end(); found_points_iterator++) {
+  printf("%lf %lf\n", (*found_points_iterator)[0], (*found_points_iterator)[1]);
+}
+*/
+
+---
+
+/* [TEST]
+// rotation_vector
+printf("ROTATION_VECTOR>>>\n");
+for(int y = 0; y < rotation_vector.rows; ++y)
+{
+  cv::Vec3f* rotation_vector_row = rotation_vector.ptr<cv::Vec3f>(y);
+  for(int x = 0; x< rotation_vector.cols; ++x)
+  {
+    std::cout << rotation_vector_row[x] << " ";
+  }
+  std::cout << std::endl;
+}
+
+// translation_vector
+printf("TRANSLATION_VECTOR>>>\n");
+for(int y = 0; y < translation_vector.rows; ++y)
+{
+  cv::Vec3f* translation_vector_row = translation_vector.ptr<cv::Vec3f>(y);
+  for(int x = 0; x < translation_vector.cols; ++x)
+  {
+    std::cout << translation_vector_row[x] << " ";
+  }
+  std::cout << std::endl;
+}
+*/
+
+---
+
+// cf. cv::Rodrigues
+// - cv::solvePnP()가 반환하는 rotation_vector는 Rodrigues를 compact하게 표현한 벡터
+// - 3차원에서 회전변환은 3*3 행렬로 표현되지만, Rodrigues는 임의의 3차원 회전변환을 4개의 값(회전축 벡터 + 회전각)만으로 표현
+// - 식에 대해서는 Rodrigues' rotation formula 참조
+
+/*
+printf("RODRIGUES>>>\n");
+for (int y=0; y<rotation_matrix.rows; y++) {
+  cv::Vec2f* rotation_matrix_row = rotation_matrix.ptr<cv::Vec2f>(y);
+  for (int x=0; x<rotation_matrix.cols; x++) {
+    std::cout << rotation_matrix_row[x] << " ";
+  }
+  std::cout << std::endl;
+}
+*/
+
+---
+
+/*
+double unit_z[] = {0, 0, 1};
+cv::Mat Zc(3, 1, CV_64FC1, unit_z);
+cv::Mat Zw = inversed_rotation_matrix * Zc;
+double* zw = (double*)Zw.data;
+
+double pan = std::atan2(zw[2], zw[0]) - CV_PI/2;
+double tilt = std::atan2(zw[2], sqrt(zw[0]*zw[0] + zw[1]*zw[1]));
+
+double unit_x[] = {1,0,0};
+cv::Mat Xc(3, 1, CV_64FC1, unit_x);
+
+// world coordinate of camera X axis
+cv::Mat Xw = inversed_rotation_matrix * Xc;
+double* xw = (double *)Xw.data;
+double xpan[] = {cos(pan), sin(pan), 0};
+
+// inner product
+double roll = std::acos(xw[0]*xpan[0] + xw[1]*xpan[1] + xw[2]*xpan[2]); 
+
+if(xw[2]<0) roll = -roll;
+
+// 팬(pan)(=yaw) : 카메라의 좌우 회전
+// 틸트(tilt) : 카메라의 상하 움직임
+// 롤(roll) : 카메라의 좌우 기울어짐
+printf("[결과2] >>> roll=%lf, tilt=%lf, pan=%lf\n", roll, tilt, pan);
+*/
+
+---

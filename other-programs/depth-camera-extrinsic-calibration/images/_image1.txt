@@ -1,0 +1,145 @@
+[결과1] >>> x=0.341741, y=1.224927, z=-0.253942
+[결과2] >>> roll=2.469961, tilt=-1.065466, pan=-3.446775
+
+// _row변수가 음수인 상태
+temporary_3d_points(0, 0) >>> 0.000000, 0.000000
+temporary_3d_points(1, 0) >>> 0.000000, 0.024100
+temporary_3d_points(2, 0) >>> 0.000000, 0.048200
+temporary_3d_points(3, 0) >>> 0.000000, 0.072300
+temporary_3d_points(4, 0) >>> 0.000000, 0.096400
+temporary_3d_points(5, 0) >>> 0.000000, 0.120500
+temporary_3d_points(6, 0) >>> 0.000000, 0.144600
+temporary_3d_points(0, 1) >>> -0.024100, 0.000000
+temporary_3d_points(1, 1) >>> -0.024100, 0.024100
+temporary_3d_points(2, 1) >>> -0.024100, 0.048200
+temporary_3d_points(3, 1) >>> -0.024100, 0.072300
+temporary_3d_points(4, 1) >>> -0.024100, 0.096400
+temporary_3d_points(5, 1) >>> -0.024100, 0.120500
+temporary_3d_points(6, 1) >>> -0.024100, 0.144600
+temporary_3d_points(0, 2) >>> -0.048200, 0.000000
+temporary_3d_points(1, 2) >>> -0.048200, 0.024100
+temporary_3d_points(2, 2) >>> -0.048200, 0.048200
+temporary_3d_points(3, 2) >>> -0.048200, 0.072300
+temporary_3d_points(4, 2) >>> -0.048200, 0.096400
+temporary_3d_points(5, 2) >>> -0.048200, 0.120500
+temporary_3d_points(6, 2) >>> -0.048200, 0.144600
+temporary_3d_points(0, 3) >>> -0.072300, 0.000000
+temporary_3d_points(1, 3) >>> -0.072300, 0.024100
+temporary_3d_points(2, 3) >>> -0.072300, 0.048200
+temporary_3d_points(3, 3) >>> -0.072300, 0.072300
+temporary_3d_points(4, 3) >>> -0.072300, 0.096400
+temporary_3d_points(5, 3) >>> -0.072300, 0.120500
+temporary_3d_points(6, 3) >>> -0.072300, 0.144600
+temporary_3d_points(0, 4) >>> -0.096400, 0.000000
+temporary_3d_points(1, 4) >>> -0.096400, 0.024100
+temporary_3d_points(2, 4) >>> -0.096400, 0.048200
+temporary_3d_points(3, 4) >>> -0.096400, 0.072300
+temporary_3d_points(4, 4) >>> -0.096400, 0.096400
+temporary_3d_points(5, 4) >>> -0.096400, 0.120500
+temporary_3d_points(6, 4) >>> -0.096400, 0.144600
+temporary_3d_points(0, 5) >>> -0.120500, 0.000000
+temporary_3d_points(1, 5) >>> -0.120500, 0.024100
+temporary_3d_points(2, 5) >>> -0.120500, 0.048200
+temporary_3d_points(3, 5) >>> -0.120500, 0.072300
+temporary_3d_points(4, 5) >>> -0.120500, 0.096400
+temporary_3d_points(5, 5) >>> -0.120500, 0.120500
+temporary_3d_points(6, 5) >>> -0.120500, 0.144600
+temporary_3d_points(0, 6) >>> -0.144600, 0.000000
+temporary_3d_points(1, 6) >>> -0.144600, 0.024100
+temporary_3d_points(2, 6) >>> -0.144600, 0.048200
+temporary_3d_points(3, 6) >>> -0.144600, 0.072300
+temporary_3d_points(4, 6) >>> -0.144600, 0.096400
+temporary_3d_points(5, 6) >>> -0.144600, 0.120500
+temporary_3d_points(6, 6) >>> -0.144600, 0.144600
+temporary_3d_points(0, 7) >>> -0.168700, 0.000000
+temporary_3d_points(1, 7) >>> -0.168700, 0.024100
+temporary_3d_points(2, 7) >>> -0.168700, 0.048200
+temporary_3d_points(3, 7) >>> -0.168700, 0.072300
+temporary_3d_points(4, 7) >>> -0.168700, 0.096400
+temporary_3d_points(5, 7) >>> -0.168700, 0.120500
+temporary_3d_points(6, 7) >>> -0.168700, 0.144600
+temporary_3d_points(0, 8) >>> -0.192800, 0.000000
+temporary_3d_points(1, 8) >>> -0.192800, 0.024100
+temporary_3d_points(2, 8) >>> -0.192800, 0.048200
+temporary_3d_points(3, 8) >>> -0.192800, 0.072300
+temporary_3d_points(4, 8) >>> -0.192800, 0.096400
+temporary_3d_points(5, 8) >>> -0.192800, 0.120500
+temporary_3d_points(6, 8) >>> -0.192800, 0.144600
+temporary_3d_points(0, 9) >>> -0.216900, 0.000000
+temporary_3d_points(1, 9) >>> -0.216900, 0.024100
+temporary_3d_points(2, 9) >>> -0.216900, 0.048200
+temporary_3d_points(3, 9) >>> -0.216900, 0.072300
+temporary_3d_points(4, 9) >>> -0.216900, 0.096400
+temporary_3d_points(5, 9) >>> -0.216900, 0.120500
+temporary_3d_points(6, 9) >>> -0.216900, 0.144600
+
+temporary_2d_points >>> 1375.663086, 1413.016235
+temporary_2d_points >>> 1378.400146, 1431.364136
+temporary_2d_points >>> 1380.951294, 1449.315674
+temporary_2d_points >>> 1383.407227, 1468.723267
+temporary_2d_points >>> 1385.071045, 1489.312500
+temporary_2d_points >>> 1388.409180, 1508.301636
+temporary_2d_points >>> 1390.727661, 1530.741333
+temporary_2d_points >>> 1343.711792, 1414.135498
+temporary_2d_points >>> 1344.448120, 1431.739990
+temporary_2d_points >>> 1346.866211, 1449.719849
+temporary_2d_points >>> 1348.297852, 1468.909180
+temporary_2d_points >>> 1351.369873, 1489.455078
+temporary_2d_points >>> 1353.038818, 1508.463501
+temporary_2d_points >>> 1354.203979, 1529.378296
+temporary_2d_points >>> 1310.984253, 1413.297852
+temporary_2d_points >>> 1311.591553, 1430.514771
+temporary_2d_points >>> 1313.375244, 1449.601807
+temporary_2d_points >>> 1314.780151, 1469.937256
+temporary_2d_points >>> 1315.659424, 1489.833618
+temporary_2d_points >>> 1317.186768, 1509.854614
+temporary_2d_points >>> 1318.443970, 1530.696899
+temporary_2d_points >>> 1278.594849, 1413.396729
+temporary_2d_points >>> 1278.280762, 1431.501709
+temporary_2d_points >>> 1279.600708, 1451.415527
+temporary_2d_points >>> 1280.280762, 1470.816650
+temporary_2d_points >>> 1281.325317, 1491.475708
+temporary_2d_points >>> 1281.435791, 1511.403320
+temporary_2d_points >>> 1282.707642, 1531.387939
+temporary_2d_points >>> 1245.701050, 1415.129761
+temporary_2d_points >>> 1246.517944, 1434.548096
+temporary_2d_points >>> 1246.084351, 1452.227661
+temporary_2d_points >>> 1246.560669, 1471.764771
+temporary_2d_points >>> 1246.612671, 1491.624268
+temporary_2d_points >>> 1246.039429, 1511.829956
+temporary_2d_points >>> 1246.585205, 1531.555786
+temporary_2d_points >>> 1213.478882, 1416.561890
+temporary_2d_points >>> 1212.631226, 1434.306763
+temporary_2d_points >>> 1212.709473, 1452.690796
+temporary_2d_points >>> 1211.614380, 1472.451660
+temporary_2d_points >>> 1212.178955, 1492.627319
+temporary_2d_points >>> 1211.278442, 1512.542603
+temporary_2d_points >>> 1210.580444, 1533.465698
+temporary_2d_points >>> 1180.673218, 1416.732788
+temporary_2d_points >>> 1180.198853, 1435.478882
+temporary_2d_points >>> 1178.652954, 1452.931274
+temporary_2d_points >>> 1177.905029, 1472.757080
+temporary_2d_points >>> 1176.789429, 1492.566406
+temporary_2d_points >>> 1175.683960, 1513.340698
+temporary_2d_points >>> 1174.194946, 1534.690674
+temporary_2d_points >>> 1148.382080, 1417.066040
+temporary_2d_points >>> 1146.588257, 1435.530396
+temporary_2d_points >>> 1144.948853, 1453.535522
+temporary_2d_points >>> 1143.211792, 1472.532104
+temporary_2d_points >>> 1141.983765, 1493.337646
+temporary_2d_points >>> 1140.451416, 1513.713745
+temporary_2d_points >>> 1138.256836, 1534.861572
+temporary_2d_points >>> 1115.426758, 1418.203369
+temporary_2d_points >>> 1113.739990, 1436.171753
+temporary_2d_points >>> 1111.292969, 1455.448853
+temporary_2d_points >>> 1109.468262, 1473.534912
+temporary_2d_points >>> 1106.188721, 1493.821777
+temporary_2d_points >>> 1104.637817, 1514.188477
+temporary_2d_points >>> 1101.434937, 1535.775635
+temporary_2d_points >>> 1083.269531, 1419.411743
+temporary_2d_points >>> 1080.117554, 1436.781250
+temporary_2d_points >>> 1077.375000, 1456.316528
+temporary_2d_points >>> 1074.420898, 1474.253662
+temporary_2d_points >>> 1071.709961, 1494.219482
+temporary_2d_points >>> 1068.794556, 1514.506592
+temporary_2d_points >>> 1065.531372, 1537.509521

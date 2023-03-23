@@ -1,0 +1,27 @@
+<launch>
+
+	<node name="joy_node" pkg="joy" type="joy_node">
+		<param name="dev" value="/dev/input/js1" />
+	</node>
+
+	<node name="devjoycontroller" pkg="joycontroller" type="devjoycontroller" output="screen">
+		<param name="max_linear" type="double" value="0.2" />
+		<param name="max_angular" type="double" value="0.2" />
+	</node>
+
+  <group>
+    <machine name="remote_servinggo" address="192.168.2.2" env-loader="/opt/ros/noetic/env.sh" user="cona" password="cona" />
+  </group>
+
+	<!-- <node machine="remote_servinggo" name="servinggo_launcher" pkg="servinggo" type="servinggo_node" output="screen">
+		<param name="port" type="string" value="/dev/servinggo"/>
+		<param name="baudrate" type="string" value="19200"/>
+		<param name="rate" type="double" value="15"/>
+	</node> -->
+
+	<!--
+		위의 주석 대신 joycontrol.launch 를 실행한 후
+		ssh cona@192.168.2.2 로 원격 접근해 roslaunch servinggo servinggo_all_m10.launch 실행할 것
+	-->
+
+</launch>

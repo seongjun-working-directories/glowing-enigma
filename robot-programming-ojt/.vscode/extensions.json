@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    // C / C++ / Python Extensions
+    "ms-vscode.cpptools",
+    "twxs.cmake",
+    "ms-vscode.cmake-tools",
+    "ms-python.python",
+
+    // ROS Extensions
+    "ms-iot.vscode-ros",
+    "smilerobotics.urdf",
+    "deitry.colcon-helper",
+
+    // File Format Extensions
+    "dotjoshjohnson.xml",
+    "redhat.vscode-yaml",
+    "yzhang.markdown-all-in-one",
+
+    // ETC Extensions
+    "ybaumes.highlight-trailing-white-spaces",
+    "msfukui.eof-mark",
+    "aaron-bond.better-comments"
+  ]
+}

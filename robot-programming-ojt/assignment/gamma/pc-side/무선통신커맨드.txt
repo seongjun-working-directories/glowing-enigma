@@ -1,0 +1,126 @@
+[BOARD]
+ifconfig
+'''
+enp89s0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 1c:69:7a:ae:d7:ad  txqueuelen 1000  (Ethernet)
+        RX packets 952279  bytes 143242394 (143.2 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 8534834  bytes 12656687536 (12.6 GB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device memory 0x6a200000-6a2fffff
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 6451  bytes 690125 (690.1 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 6451  bytes 690125 (690.1 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlo1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.50.171  netmask 255.255.255.0  broadcast 192.168.50.255
+        inet6 fe80::7cd6:6d7e:ff92:6fec  prefixlen 64  scopeid 0x20<link>
+        ether 80:38:fb:5d:37:e8  txqueuelen 1000  (Ethernet)
+        RX packets 790720  bytes 802787238 (802.7 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 183545  bytes 321068532 (321.0 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+'''
+
+sudo ufw allow from 192.168.0.0/24
+sudo ufw allow to 192.168.0.0/24
+
+vim ~/.bashrc
+'''
+source /opt/ros/noetic/setup.bash
+source ~/board-side/devel/setup.bash
+
+export ROS_MASTER_URI=http://192.168.50.161:11311
+export ROS_HOSTNAME=192.168.50.171
+'''
+
+sudo vim /etc/hosts
+'''
+127.0.0.1       localhost
+127.0.1.1       cona0901-NUC11PAHi7
+10.42.0.88      seongjun-desktop
+192.168.50.161  seongjun-desktop
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+'''
+
+source ~/.bashrc
+
+[PC]
+ifconfig
+'''
+enp0s31f6: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether a8:a1:59:93:96:cb  txqueuelen 1000  (Ethernet)
+        RX packets 8535055  bytes 12691394966 (12.6 GB)
+        RX errors 0  dropped 84  overruns 0  frame 0
+        TX packets 953505  bytes 147761917 (147.7 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 16  memory 0xa3300000-a3320000  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 208660  bytes 17023750 (17.0 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 208660  bytes 17023750 (17.0 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlx705dccffb1c5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.50.161  netmask 255.255.255.0  broadcast 192.168.50.255
+        inet6 fe80::918c:917e:e6e8:913f  prefixlen 64  scopeid 0x20<link>
+        ether 70:5d:cc:ff:b1:c5  txqueuelen 1000  (Ethernet)
+        RX packets 346542  bytes 422032423 (422.0 MB)
+        RX errors 0  dropped 8375  overruns 0  frame 0
+        TX packets 137642  bytes 15424579 (15.4 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+'''
+
+sudo ufw allow from 192.168.0.0/24
+sudo ufw allow to 192.168.0.0/24
+
+vim ~/.bashrc
+'''
+
+'''
+source /opt/ros/noetic/setup.bash
+source ~/pc-side/devel/setup.bash
+
+# Set ROS Network
+export ROS_HOSTNAME=192.168.50.161
+export ROS_MASTER_URI=http://192.168.50.161:11311
+
+export ROSLAUNCH_SSH_UNKNOWN=1
+'''
+
+sudo vim /etc/hosts
+'''
+127.0.0.1       localhost
+127.0.1.1       seongjun-desktop
+10.42.0.1       cona0901-NUC11PAHi7
+192.168.50.171  cona0901-NUC11PAHi7
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+'''
+
+source ~/.bashrc
+
+source devel/setup.bash
+
+roslaunch usb_cam usb_cam-test.launch

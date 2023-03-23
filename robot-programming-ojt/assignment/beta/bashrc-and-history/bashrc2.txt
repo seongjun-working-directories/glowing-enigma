@@ -1,0 +1,13 @@
+source /opt/ros/noetic/setup.bash
+
+source ~/coga-ojt-tmp/sensor-with-linux/devel/setup.bash
+
+~/coga-ojt-tmp/sensor-with-linux/src/ros_astra_camera/scripts/create_udev_rules
+
+source ~/Desktop/glowing-enigma/robot-programming-ojt/assignment/alpha/devel/setup.bash
+
+source ~/Desktop/glowing-enigma/robot-programming-ojt/assignment/alpha-plus/devel/setup.bash
+
+source ~/Desktop/glowing-enigma/robot-programming-ojt/practices/codes/sample01/devel/setup.bash
+
+source ~/Desktop/glowing-enigma/robot-programming-ojt/practices/codes/sample02/devel/setup.bash

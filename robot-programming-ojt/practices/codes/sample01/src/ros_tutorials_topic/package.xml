@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ros_tutorials_topic</name>
+  <version>0.0.0</version>
+  <description>The ros_tutorials_topic package</description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag -->
+  <maintainer email="hamish-official@todo.todo">hamish-official</maintainer>
+
+  <!-- Available Licenses : BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>MIT</license>
+
+  <!-- I referenced from the url below. -->
+  <url type="website">http://wiki.ros.org/following_beginner_tutorials</url>
+
+  <author email="seongjuncode@gmail.com">seongjuncode</author>
+
+  <!-- The *depend tags are used to specify dependencies -->
+  <!-- Dependencies can be catkin packages or system dependencies -->
+  <!-- Examples: -->
+  <!-- Use depend as a shortcut for packages that are both build and exec dependencies -->
+  <!--   <depend>roscpp</depend> -->
+  <!--   Note that this is equivalent to the following: -->
+  <!--   <build_depend>roscpp</build_depend> -->
+  <!--   <exec_depend>roscpp</exec_depend> -->
+  <!-- Use build_depend for packages you need at compile time: -->
+  <!--   <build_depend>message_generation</build_depend> -->
+  <!-- Use build_export_depend for packages you need in order to build against this package: -->
+  <!--   <build_export_depend>message_generation</build_export_depend> -->
+  <!-- Use buildtool_depend for build tool packages: -->
+  <!--   <buildtool_depend>catkin</buildtool_depend> -->
+  <!-- Use exec_depend for packages you need at runtime: -->
+  <!--   <exec_depend>message_runtime</exec_depend> -->
+  <!-- Use test_depend for packages you need only for testing: -->
+  <!--   <test_depend>gtest</test_depend> -->
+  <!-- Use doc_depend for packages you need only for building documentation: -->
+  <!--   <doc_depend>doxygen</doc_depend> -->
+
+  <!--
+    All packages have at least one dependency.
+
+    1. Build Tool Dependencies :: <buildtool_depend> :: 어떤 것으로 빌드할지 결정
+      Specify build system tools which this package needs to build itself.
+      """ Typically the only build tool needed is catkin. """
+      In a cross-compilation scenario build tool dependencies are for the architecture on which the compilation is performed.
+    
+    2. Build Dependencies :: <build_depend> :: 빌드할 때 의존하는 것
+      Specify which packages are needed to build this package.
+      """ This is the case when any file from these packages is required at build time. """
+      """ This can be including headers from these packages at compilation time, """
+      linking against libraries from these packages or requiring any other resource at build time
+      (especially when these packages are find_package()-ed in CMake).
+      In a cross-compilation scenario build dependencies are for the targeted architecture.
+    
+    3. Run Dependencies :: <run_depend> :: 런할 때 의존하는 것
+      Specify which packages are needed to run code in this package, or build libraries against this package.
+      This is the case when you depend on shared libraries or transitively include their headers in public headers in this package
+      (especially when these packages are declared as (CATKIN_)DEPENDS in catkin_package() in CMake).
+    
+    4. Test Dependencies : <test_depend>
+      Specify only additional dependencies for unit tests. They should never duplicate any dependencies already mentioned as build or run dependencies.
+  -->
+
+  <!-- -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <!-- -->
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>message_generation</build_export_depend>
+
+  <!-- exec_depend to make specified dependencies available at build and run time -->
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>message_generation</exec_depend>
+
+  <!-- It is often convenient to group multiple packages as a single logical package. -->
+  <!-- This can be accomplished through metapackages. -->
+  <!-- A metapackage is a normal package with the following export tag in the package.xml :: <export> -->
+
+  <!-- Additionally a metapackage has a required, boilerplate CMakeLists.txt file: -->
+  <!--
+    cmake_minimum_required(VERSION 2.8.3)
+    project(<PACKAGE_NAME>)
+    find_package(catkin REQUIRED)
+    catkin_metapackage()
+  -->
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+</package>

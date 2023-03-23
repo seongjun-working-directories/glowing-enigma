@@ -1,0 +1,13 @@
+export ROS_MASTER_URI=http://192.168.2.2:11311/
+export ROS_IP=192.168.2.2
+
+#export ROS_MASTER_URI=http://127.0.0.1:11311/
+#export ROS_IP=127.0.0.1
+
+#export DISPLAY=localhost:0.0
+
+source /opt/ros/noetic/setup.bash
+#source /home/cona/slam_toolbox/devel/setup.bash
+#source /home/cona/navigation/devel/setup.bash
+#source /home/cona/CoNA-Robots/devel/setup.bash
+source /home/cona/CoNA_Navi/install/setup.bash

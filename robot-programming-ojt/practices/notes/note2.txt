@@ -1,0 +1,123 @@
+1. ROS 프로그래밍의 표준 단위 : SI 단위
+
+길이의 단위 : 미터
+질량의 단위 : 킬로그램
+시간의 단위 : 초
+전류의 단위 : 암페어
+온도의 단위 : 켈빈
+광도의 단위 : 칸델라
+물질량의 단위 : 몰
+
+링크 : https://ko.wikipedia.org/wiki/SI_%EA%B8%B0%EB%B3%B8_%EB%8B%A8%EC%9C%84
+
+---
+
+2. SI와 같이 쓰는 비SI 단위
+
+angle : radian
+frequency : hertz
+force : newton
+power : watt
+voltage : volt
+
+---
+
+3. ROS 프로그래밍의 좌표 표현 방식
+
+(1) x: forward, y: left, z: up, 회전축: 정회전은 시계 반대 방향
+  - 오른손 법칙 기반
+(2) 오른손 법칙
+  - 삼차원 공간에서 좌표계의 오른손 좌표계를 잡는 법
+  - 벡터곱, 전자기 유도에 의한 기전력의 방향, 방향 벡터 (회전축)에 근거한 오른손 좌표계의 회전 방향, 나선형 감기는 방향 등의 정의를 표현한 것
+
+링크 : https://ko.wikipedia.org/wiki/%EC%98%A4%EB%A5%B8%EC%86%90_%EB%B2%95%EC%B9%99
+
+---
+
+4. 프로그래밍 규칙
+package         under_scored
+topic, service  under_scored
+file            under_scored
+namespace       under_scored
+variable        under_scored
+type            CamelCased
+class           CamelCased
+struct          CamelCased
+enum            CamelCased
+function        camelCased
+method          camelCased
+constant        ALL_CAPITALS
+
+---
+
+5. package.xml
+
+package.xml은 패키지 정보를 담은 XML 파일로
+패키지 이름, 저작자, 라이선스, 의존성 패키지 등을 기술
+
+---
+
+6. :: 의 의미
+
+:: 는 "범위 지정 연산자"
+
+사용방법 : ClassName:: | NameSpaceName:: | ::
+
+```C++ Example Code 1
+class Name {
+    public:
+    void Print();
+};
+
+// Name::Print()를 사용해 Name 클래스 안의 Print 함수에 접근해 선언 가능
+void Name::Print() {
+
+}
+```
+
+```C++ Example Code 2
+namespace a {
+  void Print() { }
+}
+
+namespace b {
+  void Print(); { }
+}
+
+// a::Print()는 a NameSpace 범위의 Print()
+// b::Print()는 b NameSpace 범위의 Print()
+```
+
+---
+
+7. 파일 시스템
+(예시)
+ros_tutorials_topic 패키지의 소스 코드 파일 : sample01/src/ros_tutorials_topic/src
+ros_tutorials_topic 패키지의 메시지 파일 : sample01/src/ros_tutorials_topic/msg
+빌드된 결과물 : sample01/devel, sample01/build
+  => /build 폴더에는 catkin 빌드에서 사용된 설정 내용이 저장됨
+  => /devel/lib/ros_tutorials_topic 폴더에는 실행 파일이 저장됨
+  => /devel/include/ros_tutorials_topic 폴더에는 메시지 파일로부터 자동 생성된 메시지 헤더 파일이 저장됨
+
+---
+
+8. atoll
+- 링크 : https://cplusplus.com/reference/cstdlib/atoll/
+- 설명 : Parses the C-string str interpreting its content as an integral number, which is returned as a value of type long long int.
+- 형식 : long long int atoll ( const char * str );
+- 참조 : #include <cstdlib>
+
+---
+
+9. roslaunch
+rosrun은 하나의 노드를 실행하는 명령어
+roslaunch는 하나 이상의 정해진 노드를 실행하는 명령어
+
+그 밖에도 roslaunch는 노드를 실행시킬 때
+패키지의 매개변수나 노드명 변경, 노드 네임스페이스 설정, ROS_ROOT 및 ROS_PACKAGE_PATH 설정, 환경 변수 변경
+등의 옵션을 붙일 수 있는 ROS 명령어
+
+roslaunch는 '*.launch'라는 파일을 사용하여 실행 노드를 설정하는데
+이는 XML 기반이며, 태그별 옵션을 제공함
+
+실행 명령어는 'roslaunch <패키지명> <roslaunch 파일>'

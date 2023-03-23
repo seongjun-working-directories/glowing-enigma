@@ -1,0 +1,11 @@
+<launch>
+  <include file="$(find astra_camera)/launch/stereo_s_u3.launch" />
+
+  <param name="robot_description" textfile="$(find depth_camera_extrinsic_calibrator)/urdf/dce_urdf.urdf" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <node name="depth_camera_extrinsic_calibrator" pkg="depth_camera_extrinsic_calibrator" type="dce_calibrator" output="screen" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find depth_camera_extrinsic_calibrator)/rviz/dce_rviz.rviz" required="true" />
+</launch>

@@ -1,0 +1,55 @@
+mkdir -p turtlesim_tutorials/src # => turtlesim_tutorials 대신 alpha를 사용
+cd turtlesim_tutorials/src
+catkin_init_workspace
+cd ..
+catkin_make
+
+# turtlesim_tutorials/src에서 시작
+
+catkin_create_pkg turtle_lawnmower turtlesim roscpp geometry_msgs
+
+# turtle_lawnmower/src 안에 turtle_lawnmower_node.cpp를 생성함 --> subscriber 역할
+# turtle_lawnmower/include/turtle_lawnmower 안에 TurtleLawnmower.hpp를 생성함
+# CMakeLists.txt와 package.xml을 수정함
+
+# turtlesim_tutorials에서 시작
+
+catkin_make
+
+[ Terminal 1 ]
+roscore
+
+[ Terminal 2 ]
+rosrun turtlesim turtlesim_node
+
+[ Terminal 3 ]
+rosrun turtle_lawnmower turtle_lawnmower_node
+
+# TurtleLawnmower class를 수정함 --> publisher 역할 추가
+
+catkin_make
+
+[ Terminal 1 ]
+roscore
+
+[ Terminal 2 ]
+rosrun turtlesim turtlesim_node
+
+[ Terminal 3 ]
+rosrun turtle_lawnmower turtle_lawnmower_node
+
+# turtle_lawnmower 패키지에서 1번, 2번 도로주행 코드 완성
+
+catkin_make
+
+[ Terminal 1 ]
+roscore
+
+[ Terminal 2 ]
+rosrun turtlesim turtlesim_node
+
+[ Terminal 3 ]
+rosrun turtle_lawnmower turtle_lawnmower_node
+
+[ Terminal 4 ]
+rostopic pub /driver_start std_msgs/Bool true
